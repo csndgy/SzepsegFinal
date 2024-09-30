@@ -5,8 +5,179 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SzepsegV0._2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Beauty Salon Booking" Height="415" Width="375">
+    <Window.Resources>
+        <!-- ComboBoxToggleButton sablon -->
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Padding="2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ContentPresenter Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <Path Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Fill="Black" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
 
+        <!-- ComboBoxTextBox sablon -->
+        <Style x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Stílus a ComboBox-hoz -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border 
+                        CornerRadius="10" 
+                        Background="#A44200" 
+                        BorderBrush="#A44200" 
+                        BorderThickness="4">
+                            <Grid>
+                                <ToggleButton 
+                                Name="ToggleButton" 
+                                Template="{StaticResource ComboBoxToggleButton}" 
+                                Grid.Column="2" 
+                                Focusable="False" 
+                                IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" 
+                                ClickMode="Press" 
+                                Background="#A44200" 
+                                BorderBrush="#A44200" />
+
+                                <TextBlock 
+                                Name="ContentSite"
+                                Text="{TemplateBinding SelectionBoxItem}" 
+                                Margin="3,3,23,3" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Left" 
+                                Foreground="#3C1518"/>
+
+                                <TextBox x:Name="PART_EditableTextBox"
+                                Style="{StaticResource ComboBoxTextBox}" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Margin="3,3,23,3" 
+                                Focusable="True" 
+                                Background="Transparent" 
+                                Foreground="#3C1518"
+                                Visibility="Hidden"/>
+
+                                <Popup Name="Popup" 
+                                Placement="Bottom" 
+                                IsOpen="{TemplateBinding IsDropDownOpen}" 
+                                AllowsTransparency="True" 
+                                Focusable="False" 
+                                PopupAnimation="Slide">
+                                    <Grid Name="DropDown" 
+                                    SnapsToDevicePixels="True" 
+                                    MinWidth="{TemplateBinding ActualWidth}" 
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border 
+                                        Name="DropDownBorder" 
+                                        Background="#A44200" 
+                                        BorderBrush="#A44200" 
+                                        BorderThickness="4" 
+                                        CornerRadius="10"/>
+
+                                        <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Szöveg és háttér színek beállítása a ComboBox elemekre -->
+            <Setter Property="Foreground" Value="#3C1518"/>
+            <Setter Property="Background" Value="#A44200"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="#3C1518"/>
+                        <Setter Property="Background" Value="#A44200"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <TextBlock 
+                                        HorizontalAlignment="Left" 
+                                        VerticalAlignment="Center" 
+                                        Margin="10,0" 
+                                        Text="{TemplateBinding Content}" 
+                                        Foreground="{TemplateBinding Foreground}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FCF7FF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#A44200"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid Background="#3C1518">
+        <Grid.Clip>
+            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,375,400" />
+        </Grid.Clip>
+
+        <StackPanel Margin="50">
+            <!-- Szolgáltatás kiválasztása -->
+            <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#A44200"/>
+            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30" >
+                <ComboBoxItem Content="Manikűr"/>
+                <ComboBoxItem Content="Pedikűr"/>
+                <ComboBoxItem Content="Fodrászat"/>
+                <ComboBoxItem Content="Arckezelés"/>
+            </ComboBox>
+
+            <!-- Dolgozó kiválasztása -->
+            <TextBlock Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold" Margin="0,20,0,10" Foreground="#A44200"/>
+            <ComboBox x:Name="WorkerComboBox" Width="200" Height="30"/>
+            <StackPanel>
+                <Label Content="Válassz időpontot:" FontSize="16" FontWeight="Bold" Margin="0,20,0,10" Foreground="#A44200"/>
+                <ComboBox x:Name="appointmentComboBox" Width="200" Height="30">
+                    <ComboBoxItem Content="08:00" />
+                    <ComboBoxItem Content="08:30" />
+                    <ComboBoxItem Content="09:00" />
+                    <ComboBoxItem Content="09:30" />
+                    <ComboBoxItem Content="10:00" />
+                    <ComboBoxItem Content="10:30" />
+                    <ComboBoxItem Content="11:00" />
+                    <ComboBoxItem Content="11:30" />
+                    <ComboBoxItem Content="12:00" />
+                    <ComboBoxItem Content="12:30" />
+                    <ComboBoxItem Content="13:00" />
+                    <ComboBoxItem Content="13:30" />
+                    <ComboBoxItem Content="14:00" />
+                    <ComboBoxItem Content="14:30" />
+                    <ComboBoxItem Content="15:00" />
+                    <ComboBoxItem Content="15:30" />
+                    <ComboBoxItem Content="16:00" />
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>
