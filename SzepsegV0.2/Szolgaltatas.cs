@@ -26,4 +26,4 @@ namespace SzepsegV0._2
         public DateTime SzolgaltatasIdotartalma { get => szolgaltatasIdotartalma; set => szolgaltatasIdotartalma = value; }
     }
 }
-}
+
