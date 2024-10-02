@@ -8,15 +8,15 @@ namespace SzepsegV0._2
 {
     internal class Dolgozok
     {
-        int dolgozoID, szolgaltatasa;
+        int dolgozoID, szolgaltatasID;
         string dolgozoFirstName, dolgozoLastName,
             dolgozoTel, dolgozoEmail;
         bool statusz;
 
-        public Dolgozok(int dolgozoID, int szolgaltatasa, string dolgozoFirstName, string dolgozoLastName, string dolgozoTel, string dolgozoEmail, bool statusz)
+        public Dolgozok(int dolgozoID, int szolgaltatasID, string dolgozoFirstName, string dolgozoLastName, string dolgozoTel, string dolgozoEmail, bool statusz)
         {
             this.dolgozoID = dolgozoID;
-            this.szolgaltatasa = szolgaltatasa;
+            this.szolgaltatasID = szolgaltatasID;
             this.dolgozoFirstName = dolgozoFirstName;
             this.dolgozoLastName = dolgozoLastName;
             this.dolgozoTel = dolgozoTel;
@@ -25,7 +25,7 @@ namespace SzepsegV0._2
         }
 
         public int DolgozoID { get => dolgozoID; set => dolgozoID = value; }
-        public int Szolgaltatasa { get => szolgaltatasa; set => szolgaltatasa = value; }
+        public int SzolgaltatasID { get => szolgaltatasID; set => szolgaltatasID = value; }
         public string DolgozoFirstName { get => dolgozoFirstName; set => dolgozoFirstName = value; }
         public string DolgozoLastName { get => dolgozoLastName; set => dolgozoLastName = value; }
         public string DolgozoTel { get => dolgozoTel; set => dolgozoTel = value; }

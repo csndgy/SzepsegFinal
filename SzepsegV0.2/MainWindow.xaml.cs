@@ -13,39 +13,37 @@ using MySql.Data.MySqlClient;
 
 namespace SzepsegV0._2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string connectionString = "server=localhost;database=szepseg;uid=root;";
+
         public MainWindow()
         {
             InitializeComponent();
-            LoadWorkers();
-            LoadServices();
+            SzolgaltatasokBetoltese();
         }
 
-        private void LoadServices()
+        private void SzolgaltatasokBetoltese()
         {
-            string connectionString = "server=localhost;database=szepseg;uid=root;";
-            string query = "SELECT SzolgaltatasKategoria FROM szolgaltatas";
+            string lekerdezes = "SELECT SzolgaltatasKategoria FROM szolgaltatas";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlCommand command = new MySqlCommand(lekerdezes, connection);
                     MySqlDataReader reader = command.ExecuteReader();
 
-                    List<string> services = new List<string>();
+                    List<string> szolgaltatasok = new List<string>();
 
                     while (reader.Read())
                     {
-                        services.Add(reader["SzolgaltatasKategoria"].ToString());
+                        szolgaltatasok.Add(reader["SzolgaltatasKategoria"].ToString());
                     }
 
-                    ServiceComboBox.ItemsSource = services;
+                    ServiceComboBox.ItemsSource = szolgaltatasok;
+                    ServiceComboBox.SelectionChanged += SzolgaltatasKombobox_SelectionChanged;
                 }
                 catch (Exception ex)
                 {
@@ -54,33 +52,46 @@ namespace SzepsegV0._2
             }
         }
 
-        // Dolgozók tábla adatainak betöltése a ComboBox-ba
-        private void LoadWorkers()
+        private void DolgozokBetoltese(string valasztottSzolgaltatasKategoria)
         {
-            string connectionString = "server=localhost;database=szepseg;uid=root;";
-            string query = "SELECT CONCAT(dolgozoFirstName, ' ', dolgozoLastName) AS DolgozoNev FROM dolgozok WHERE statusz = 1"; // Csak az aktív dolgozók
+            string lekerdezes = @"
+    SELECT CONCAT(d.dolgozoFirstName, ' ', d.dolgozoLastName) AS DolgozoNev 
+    FROM dolgozok d 
+    JOIN szolgaltatas s ON d.szolgáltatasa = s.szolgaltatasID
+    WHERE s.szolgaltatasKategoria = @valasztottSzolgaltatasKategoria 
+    AND d.statusz = 1";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection kapcsolat = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataReader reader = command.ExecuteReader();
+                    kapcsolat.Open();
+                    MySqlCommand parancs = new MySqlCommand(lekerdezes, kapcsolat);
+                    parancs.Parameters.AddWithValue("@valasztottSzolgaltatasKategoria", valasztottSzolgaltatasKategoria);
+                    MySqlDataReader olvaso = parancs.ExecuteReader();
 
-                    List<string> workers = new List<string>();
+                    List<string> dolgozok = new List<string>();
 
-                    while (reader.Read())
+                    while (olvaso.Read())
                     {
-                        workers.Add(reader["DolgozoNev"].ToString());
+                        dolgozok.Add(olvaso["DolgozoNev"].ToString());
                     }
 
-                    WorkerComboBox.ItemsSource = workers;
+                    WorkerComboBox.ItemsSource = dolgozok;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Hiba történt a dolgozók betöltése során: " + ex.Message);
                 }
+            }
+        }
+
+        private void SzolgaltatasKombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ServiceComboBox.SelectedItem != null)
+            {
+                string valasztottSzolgaltatas = ServiceComboBox.SelectedItem.ToString();
+                DolgozokBetoltese(valasztottSzolgaltatas);
             }
         }
     }
