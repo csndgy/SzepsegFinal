@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace SzepsegV0._2
 {
-    public partial class MainWindow : Window
+    public partial class Bejelnetkzes : Window
     {
     }
 }

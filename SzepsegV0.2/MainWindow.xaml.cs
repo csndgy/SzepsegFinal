@@ -95,10 +95,10 @@ namespace SzepsegV0._2
             }
         }
 
-        private void btnFoglalas_Click(object sender, RoutedEventArgs e)
-        {
-            Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
-            bejelnetkzes.Show();
-        }
+        //private void btnFoglalas_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
+        //    bejelnetkzes.Show();
+        //}
     }
 }
