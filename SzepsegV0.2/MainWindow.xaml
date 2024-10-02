@@ -22,12 +22,7 @@
         <StackPanel Margin="50">
             <!-- Szolgáltatás kiválasztása -->
             <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A"/>
-            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30" >
-                <ComboBoxItem Content="Manikűr"/>
-                <ComboBoxItem Content="Pedikűr"/>
-                <ComboBoxItem Content="Fodrászat"/>
-                <ComboBoxItem Content="Arckezelés"/>
-            </ComboBox>
+            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30" />
 
             <!-- Dolgozó kiválasztása -->
             <TextBlock Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold" Margin="0,20,0,10" Foreground="#B3B89A"/>
