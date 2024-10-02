@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Beauty Salon Booking" Height="415" Width="375">
+        Title="Beauty Salon Booking" Height="415" Width="375"
+        >
+        
 
 
     <Window.Resources>
@@ -34,10 +36,7 @@
             <!-- Szolgáltatás kiválasztása -->
             <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
             <ComboBox x:Name="ServiceComboBox" Width="200" Height="30"  Grid.Row="1">
-                <ComboBoxItem Content="Manikűr"/>
-                <ComboBoxItem Content="Pedikűr"/>
-                <ComboBoxItem Content="Fodrászat"/>
-                <ComboBoxItem Content="Arckezelés"/>
+                
             </ComboBox>
 
             <!-- Dolgozó kiválasztása -->
@@ -50,7 +49,7 @@
 
             <!-- Foglalás gomb a jobb alsó sarokban -->
             <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
-                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0"/>
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0" Click="btnFoglalas_Click"/>
         </Grid>
     </Grid>
 </Window>

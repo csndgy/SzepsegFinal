@@ -94,5 +94,11 @@ namespace SzepsegV0._2
                 DolgozokBetoltese(valasztottSzolgaltatas);
             }
         }
+
+        private void btnFoglalas_Click(object sender, RoutedEventArgs e)
+        {
+            Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
+            bejelnetkzes.Show();
+        }
     }
 }
