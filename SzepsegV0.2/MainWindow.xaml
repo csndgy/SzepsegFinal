@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         Title="Beauty Salon Booking" Height="415" Width="375">
 
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,36 +20,37 @@
             <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,375,400" />
         </Grid.Clip>
 
-        <StackPanel Margin="50">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
             <!-- Szolgáltatás kiválasztása -->
-            <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A"/>
-            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30" />
+            <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
+            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30"  Grid.Row="1">
+                <ComboBoxItem Content="Manikűr"/>
+                <ComboBoxItem Content="Pedikűr"/>
+                <ComboBoxItem Content="Fodrászat"/>
+                <ComboBoxItem Content="Arckezelés"/>
+            </ComboBox>
 
             <!-- Dolgozó kiválasztása -->
-            <TextBlock Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold" Margin="0,20,0,10" Foreground="#B3B89A"/>
-            <ComboBox x:Name="WorkerComboBox" Width="200" Height="30"/>
-            <StackPanel>
-                <Label Content="Válassz időpontot:" FontSize="16" FontWeight="Bold" Margin="0,20,0,10" Foreground="#B3B89A"/>
-                <ComboBox x:Name="appointmentComboBox" Width="200" Height="30">
-                    <ComboBoxItem Content="08:00" />
-                    <ComboBoxItem Content="08:30" />
-                    <ComboBoxItem Content="09:00" />
-                    <ComboBoxItem Content="09:30" />
-                    <ComboBoxItem Content="10:00" />
-                    <ComboBoxItem Content="10:30" />
-                    <ComboBoxItem Content="11:00" />
-                    <ComboBoxItem Content="11:30" />
-                    <ComboBoxItem Content="12:00" />
-                    <ComboBoxItem Content="12:30" />
-                    <ComboBoxItem Content="13:00" />
-                    <ComboBoxItem Content="13:30" />
-                    <ComboBoxItem Content="14:00" />
-                    <ComboBoxItem Content="14:30" />
-                    <ComboBoxItem Content="15:00" />
-                    <ComboBoxItem Content="15:30" />
-                    <ComboBoxItem Content="16:00" />
-                </ComboBox>
-            </StackPanel>
-        </StackPanel>
+            <TextBlock Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="2"/>
+            <ComboBox x:Name="WorkerComboBox" Width="200" Height="30" Grid.Row="3"/>
+
+            <!-- Időpont kiválasztása -->
+            <Label Content="Válassz időpontot:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="4"/>
+            <ComboBox x:Name="appointmentComboBox" Width="200" Height="30" Grid.Row="5"/>
+
+            <!-- Foglalás gomb a jobb alsó sarokban -->
+            <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0"/>
+        </Grid>
     </Grid>
 </Window>
