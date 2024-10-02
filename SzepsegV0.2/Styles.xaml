@@ -15,6 +15,38 @@
         </Border>
     </ControlTemplate>
 
+    <!-- Button stílus -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#727D60"/>
+        <Setter Property="Foreground" Value="#D1DABF"/>
+        <Setter Property="BorderBrush" Value="#B3B89A"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+             Background="{TemplateBinding Background}" 
+             BorderBrush="{TemplateBinding BorderBrush}" 
+             BorderThickness="{TemplateBinding BorderThickness}" 
+             CornerRadius="10" 
+             Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#5E6750"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#2E403B"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!-- ComboBoxTextBox sablon -->
     <Style x:Key="ComboBoxTextBox" TargetType="TextBox">
         <Setter Property="Template">
@@ -94,6 +126,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+       
+
         <!-- Szöveg és háttér színek beállítása a ComboBox elemekre -->
         <Setter Property="Foreground" Value="#D1DABF"/>
         <Setter Property="Background" Value="#727D60"/>
