@@ -34,22 +34,21 @@
             </Grid.RowDefinitions>
 
             <!-- Szolgáltatás kiválasztása -->
-            <TextBlock Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
             <ComboBox x:Name="ServiceComboBox" Width="200" Height="30"  Grid.Row="1">
-                
             </ComboBox>
 
             <!-- Dolgozó kiválasztása -->
-            <TextBlock Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="2"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="2"/>
             <ComboBox x:Name="WorkerComboBox" Width="200" Height="30" Grid.Row="3"/>
 
             <!-- Időpont kiválasztása -->
-            <Label Content="Válassz időpontot:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="4"/>
+            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Válassz időpontot:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="4"/>
             <ComboBox x:Name="appointmentComboBox" Width="200" Height="30" Grid.Row="5"/>
 
             <!-- Foglalás gomb a jobb alsó sarokban -->
-            <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
-                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,20,0,0" Click="btnFoglalas_Click"/>
+            <Button Content="Mentés" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
+                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
         </Grid>
     </Grid>
 </Window>
