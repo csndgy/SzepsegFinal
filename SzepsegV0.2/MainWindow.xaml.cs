@@ -105,11 +105,65 @@ AND d.statusz = 1";
                 string dolgozo = WorkerComboBox.SelectedItem.ToString();
                 string idopont = appointmentComboBox.SelectedItem.ToString();
 
-                
+                DateTime foglalasStart = DateTime.Parse(idopont); 
+                DateTime foglalasEnd = foglalasStart.AddMinutes(30); 
+
+                int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
+                int dolgozoID = GetDolgozoID(dolgozo);
+                int ugyfelID = 1;
+
+                string lekerdezes = @"
+            INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
+            VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                        command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
+                        command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+                        command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
+                        command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
+                        command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
+
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("A foglalás sikeresen létrejött!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hiba történt a foglalás során: " + ex.Message);
+                    }
+                }
             }
             else
             {
                 MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
+            }
+        }
+
+        private int GetSzolgaltatasID(string szolgaltatasKategoria)
+        {
+            string lekerdezes = "SELECT szolgaltatasID FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+
+        private int GetDolgozoID(string dolgozoNev)
+        {
+            string lekerdezes = "SELECT dolgozoID FROM Dolgozók WHERE CONCAT(dolgozoFirstName, ' ', dolgozoLastName) = @dolgozoNev";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                command.Parameters.AddWithValue("@dolgozoNev", dolgozoNev);
+                return Convert.ToInt32(command.ExecuteScalar());
             }
         }
 
