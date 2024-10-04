@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace SzepsegV0._2
 {
     /// <summary>
-    /// Interaction logic for Bejelnetkzes.xaml
+    /// Interaction logic for AdatokBeirasa.xaml
     /// </summary>
-    public partial class Bejelnetkzes : Window
+    public partial class AdatokBeirasa : Window
     {
-        public Bejelnetkzes()
+        public AdatokBeirasa()
         {
             InitializeComponent();
         }

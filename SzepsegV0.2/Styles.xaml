@@ -14,7 +14,25 @@
             </Grid>
         </Border>
     </ControlTemplate>
-
+    <!-- Label sablon -->
+    <Style TargetType="Label" x:Key="CustomLabelStyle">
+        <Setter Property="Foreground" Value="#B3B89A"/>
+    </Style>
+    <!-- TextBox sablon -->
+    <Style TargetType="TextBox" x:Key="CustomTextBoxStyle">
+        <Setter Property="Foreground" Value="#2E403B"/>
+        <Setter Property="Background" Value="#B3B89A"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="5">
+                        <!-- Kerekítés hozzáadva -->
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!-- Button stílus -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="#727D60"/>
@@ -126,8 +144,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-       
 
+  
         <!-- Szöveg és háttér színek beállítása a ComboBox elemekre -->
         <Setter Property="Foreground" Value="#D1DABF"/>
         <Setter Property="Background" Value="#727D60"/>
@@ -159,6 +177,49 @@
                             <Setter Property="Background" Value="#2E403B"/>
                         </Trigger>
                     </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- DataGrid stílus -->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="#727D60"/>
+        <Setter Property="BorderBrush" Value="#B3B89A"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGrid">
+                    <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer>
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RowBackground" Value="#5E6750"/>
+        <Setter Property="AlternatingRowBackground" Value="#4A5B4C"/>
+        <Setter Property="Foreground" Value="#B3B89A"/>
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#B3B89A"/>
+                    <!-- Fejléc háttérszíne -->
+                    <Setter Property="Foreground" Value="#2E403B"/>
+                    <!-- Fejléc betűszíne -->
+                    <Setter Property="BorderBrush" Value="#B3B89A"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </Setter.Value>
         </Setter>
