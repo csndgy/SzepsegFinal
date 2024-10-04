@@ -47,7 +47,7 @@
             <ComboBox x:Name="appointmentComboBox" Width="200" Height="30" Grid.Row="5"/>
 
             <!-- Foglalás gomb a jobb alsó sarokban -->
-            <Button Content="Mentés" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
+            <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
                  HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
         </Grid>
     </Grid>
