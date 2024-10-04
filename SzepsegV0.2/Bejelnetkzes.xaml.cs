@@ -34,6 +34,8 @@ namespace SzepsegV0._2
             {
                 bejelentkezesAblak.Activate();
             }
+
         }
+       
     }
 }

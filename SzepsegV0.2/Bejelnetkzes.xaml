@@ -14,49 +14,53 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <!-- Logo -->
         <TextBlock Text="GAIA" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" 
-                   Margin="10,10,0,0" 
+                   Margin="3,10,0,0" 
                    FontSize="20" 
                    FontWeight="Bold" 
-                   Foreground="LightGreen"/>
+                   Foreground="LightGreen" Height="27" Width="49" Grid.Column="1"/>
 
         <TextBlock Text="Felhasználó" 
                    HorizontalAlignment="Right" 
                    VerticalAlignment="Top" 
                    Margin="0,10,20,0" 
                    FontSize="14" 
-                   Foreground="LightGray"/>
+                   Foreground="LightGray" Grid.Column="1" Height="19" Width="72"/>
 
         <Button Content="Időpont foglalás" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="20,100,0,0" 
+                Margin="13,100,0,0" 
                 Width="150" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
-                FontSize="14" x:Name="btnFoglalas" Click="btnFoglalas_Click"
+                FontSize="14" x:Name="btnFoglalas" Click="btnFoglalas_Click" Grid.Column="1"
                 />
 
         <Button Content="Időpont törlés/módosítás" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="20,160,0,0" 
+                Margin="13,160,0,0" 
                 Width="150" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
-                FontSize="11"/>
+                FontSize="11" Grid.Column="1"/>
 
         <GroupBox Header="A felhasználó foglalásai" 
-                  HorizontalAlignment="Right" 
+                  HorizontalAlignment="Center" 
                   VerticalAlignment="Top" 
-                  Margin="0,60,40,0" 
+                  Margin="0,60,0,0" 
                   Width="400" 
-                  Foreground="LightGray">
+                  Foreground="LightGray" Grid.Column="1" Height="243">
             <DataGrid x:Name="UserBookingsDataGrid" 
                       Width="380" 
                       Height="220" 
@@ -67,11 +71,11 @@
         <Button Content="Kijelentkezés" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
-                Margin="20,0,0,10" 
+                Margin="13,0,0,10" 
                 Width="109" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
-                FontSize="14"/>
+                FontSize="14" Grid.Column="1"/>
     </Grid>
 </Window>

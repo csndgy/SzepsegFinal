@@ -48,7 +48,7 @@
 
             <!-- Foglalás gomb a jobb alsó sarokban -->
             <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
-                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
+                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Click="btnFoglalas_Click"/>
         </Grid>
     </Grid>
 </Window>

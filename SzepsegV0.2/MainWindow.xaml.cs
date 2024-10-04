@@ -15,17 +15,18 @@ namespace SzepsegV0._2
 {
     public partial class MainWindow : Window
     {
-        private readonly string connectionString = "server=localhost;database=szepseg;uid=root;";
+        private readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
 
         public MainWindow()
         {
             InitializeComponent();
             SzolgaltatasokBetoltese();
+            FillComboBoxWithTimeSlots();
         }
 
         private void SzolgaltatasokBetoltese()
         {
-            string lekerdezes = "SELECT SzolgaltatasKategoria FROM szolgaltatas";
+            string lekerdezes = "SELECT SzolgaltatasKategoria FROM szolgáltatás";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -55,11 +56,12 @@ namespace SzepsegV0._2
         private void DolgozokBetoltese(string valasztottSzolgaltatasKategoria)
         {
             string lekerdezes = @"
-    SELECT CONCAT(d.dolgozoFirstName, ' ', d.dolgozoLastName) AS DolgozoNev 
-    FROM dolgozok d 
-    JOIN szolgaltatas s ON d.szolgáltatasa = s.szolgaltatasID
-    WHERE s.szolgaltatasKategoria = @valasztottSzolgaltatasKategoria 
-    AND d.statusz = 1";
+SELECT CONCAT(d.dolgozoFirstName, ' ', d.dolgozoLastName) AS DolgozoNev 
+FROM Dolgozók d 
+JOIN Szolgáltatás s ON d.szolgáltatasa = s.szolgaltatasID
+WHERE s.szolgaltatasKategoria = @valasztottSzolgaltatasKategoria 
+AND d.statusz = 1";
+
 
             using (MySqlConnection kapcsolat = new MySqlConnection(connectionString))
             {
@@ -92,6 +94,34 @@ namespace SzepsegV0._2
             {
                 string valasztottSzolgaltatas = ServiceComboBox.SelectedItem.ToString();
                 DolgozokBetoltese(valasztottSzolgaltatas);
+            }
+        }
+
+        private void btnFoglalas_Click(object sender, RoutedEventArgs e)
+        {
+            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem != null && appointmentComboBox.SelectedItem != null)
+            {
+                string szolgaltatas = ServiceComboBox.SelectedItem.ToString();
+                string dolgozo = WorkerComboBox.SelectedItem.ToString();
+                string idopont = appointmentComboBox.SelectedItem.ToString();
+
+                
+            }
+            else
+            {
+                MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
+            }
+        }
+
+        private void FillComboBoxWithTimeSlots()
+        {
+            DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
+            DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
+
+            while (startTime <= endTime)
+            {
+                appointmentComboBox.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
+                startTime = startTime.AddMinutes(30); // Félórás lépés
             }
         }
 
