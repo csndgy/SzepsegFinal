@@ -9,4 +9,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Gaia.png" />
+    <None Remove="preview.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Gaia.png" />
+    <Resource Include="preview.png" />
+  </ItemGroup>
+
 </Project>

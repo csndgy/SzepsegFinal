@@ -14,9 +14,16 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid >
-        <DataGrid Margin="50,10,50,74" d:ItemsSource="{d:SampleData ItemCount=5}" Width="650" Height="200"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="35" Margin="200,250,0,0" VerticalAlignment="Top" Width="92"/>
-        <Button Content="Button" HorizontalAlignment="Left" Height="35" Margin="451,250,200,0" VerticalAlignment="Top" Width="92"/>
+        <DataGrid Margin="50,10,50,74" d:ItemsSource="{d:SampleData ItemCount=5}" Width="650" Height="200">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Név" Binding="{Binding nev}" />
+                <DataGridTextColumn Header="Város" Binding="{Binding City}" />
+                <DataGridTextColumn Header="Kor" Binding="{Binding Age}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Button Content="Törlés" HorizontalAlignment="Left" Height="35" Margin="200,250,0,0" VerticalAlignment="Top" Width="92"/>
+        <Button Content="Szerkeztés" HorizontalAlignment="Left" Height="35" Margin="451,250,200,0" VerticalAlignment="Top" Width="92"/>
 
     </Grid>
 </Window>

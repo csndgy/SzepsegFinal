@@ -23,6 +23,7 @@
         <Button Content="Bejelentkezés" HorizontalAlignment="Left" Height="40" Margin="43,312,15,0" VerticalAlignment="Top" Width="112"/>
         <Button Content="Regisztráció" HorizontalAlignment="Left" Height="40" Margin="195,312,0,0" VerticalAlignment="Top" Width="112"/>
         <Canvas HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
-
+        <Image Source="pack://application:,,,/preview.png" HorizontalAlignment="Left" Height="283" Margin="375,114,0,0" VerticalAlignment="Top" Width="340"/>
+        <Image Source="pack://application:,,,/Gaia.png" HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
     </Grid>
 </Window>

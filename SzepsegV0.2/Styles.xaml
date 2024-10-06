@@ -18,6 +18,18 @@
     <Style TargetType="Label" x:Key="CustomLabelStyle">
         <Setter Property="Foreground" Value="#B3B89A"/>
     </Style>
+    <!--Image sablon -->
+    <Style TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border CornerRadius="5" ClipToBounds="True">
+                        <Image Source="{TemplateBinding Content}" Stretch="UniformToFill"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!-- TextBox sablon -->
     <Style TargetType="TextBox" x:Key="CustomTextBoxStyle">
         <Setter Property="Foreground" Value="#2E403B"/>
@@ -33,6 +45,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <!-- Button stílus -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="#727D60"/>
@@ -191,15 +204,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="DataGrid">
                     <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer>
-                            <ItemsPresenter />
-                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="RowBackground" Value="#5E6750"/>
-        <Setter Property="AlternatingRowBackground" Value="#4A5B4C"/>
         <Setter Property="Foreground" Value="#B3B89A"/>
         <Setter Property="ColumnHeaderStyle">
             <Setter.Value>
