@@ -9,30 +9,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
 
 namespace SzepsegV0._2
 {
-    public partial class Bejelnetkzes : Window
+    public partial class Foglalasok : Window
     {
-        public Bejelnetkzes()
+        public Foglalasok()
         {
             InitializeComponent();
         }
 
-        private void btnFoglalas_Click(object sender, RoutedEventArgs e)
-        {
-            if (bejelentkezesAblak == null || !bejelentkezesAblak.IsVisible)
-            {
-                bejelentkezesAblak = new MainWindow();
-                bejelentkezesAblak.Show();
-            }
-            else
-            {
-                bejelentkezesAblak.Activate();
-            }
-
-        }
+        
        
     }
 }
