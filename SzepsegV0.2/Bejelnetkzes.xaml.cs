@@ -27,7 +27,6 @@ namespace SzepsegV0._2
             if (bejelentkezesAblak == null || !bejelentkezesAblak.IsVisible)
             {
                 bejelentkezesAblak = new MainWindow();
-                bejelentkezesAblak.Closed += (s, args) => bejelentkezesAblak = null; //??? chatG
                 bejelentkezesAblak.Show();
             }
             else
