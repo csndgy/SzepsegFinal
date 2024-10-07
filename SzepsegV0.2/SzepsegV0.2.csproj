@@ -10,7 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <None Remove="Gaia.png" />
+    <None Remove="preview.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Gaia.png" />
+    <Resource Include="preview.png" />
   </ItemGroup>
 
 </Project>

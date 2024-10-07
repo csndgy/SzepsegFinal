@@ -1,0 +1,29 @@
+﻿<Window x:Class="SzepsegV0._2.AdatokBeirasa"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SzepsegV0._2"
+        mc:Ignorable="d"
+        Title="AdatokBeirasa" Height="480" Width="750" Background="#FF2E403B">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Left" Height="32" Margin="58,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <TextBox Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Left" Height="32" Margin="58,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Felhasználó név" HorizontalAlignment="Left" Height="24" Margin="58,130,0,0" VerticalAlignment="Top" Width="230" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Felhasználó név" HorizontalAlignment="Left" Height="24" Margin="58,208,0,0" VerticalAlignment="Top" Width="230" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="   Szépség, amit a &#xA;természet inspirált" HorizontalAlignment="Left" Height="89" Margin="404,10,0,0" VerticalAlignment="Top" Width="282" VerticalContentAlignment="Center" FontSize="28" Padding="0,0,50,0" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Center"/>
+        <Canvas HorizontalAlignment="Left" Height="283" Margin="375,114,0,0" VerticalAlignment="Top" Width="340"/>
+        <Button Content="Bejelentkezés" HorizontalAlignment="Left" Height="40" Margin="43,312,15,0" VerticalAlignment="Top" Width="112"/>
+        <Button Content="Regisztráció" HorizontalAlignment="Left" Height="40" Margin="195,312,0,0" VerticalAlignment="Top" Width="112"/>
+        <Canvas HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
+        <Image Source="pack://application:,,,/preview.png" HorizontalAlignment="Left" Height="283" Margin="375,114,0,0" VerticalAlignment="Top" Width="340"/>
+        <Image Source="pack://application:,,,/Gaia.png" HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
+    </Grid>
+</Window>

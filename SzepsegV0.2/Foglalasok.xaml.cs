@@ -15,8 +15,6 @@ namespace SzepsegV0._2
 {
     public partial class Bejelnetkzes : Window
     {
-        private MainWindow bejelentkezesAblak;
-
         public Bejelnetkzes()
         {
             InitializeComponent();
