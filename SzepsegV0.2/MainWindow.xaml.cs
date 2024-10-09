@@ -167,6 +167,7 @@ AND d.statusz = 1";
             }
         }
 
+
         private void FillComboBoxWithTimeSlots()
         {
             DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
