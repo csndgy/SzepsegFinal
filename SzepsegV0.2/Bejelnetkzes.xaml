@@ -37,7 +37,7 @@
                    VerticalAlignment="Top" 
                    Margin="3,10,0,0" 
                    FontSize="20" 
-                   FontWeight="Bold" 
+                   FontWeight="Bold" ></TextBlock>
 
         <Label Content="Felhasználó" 
                    HorizontalAlignment="Right" 
