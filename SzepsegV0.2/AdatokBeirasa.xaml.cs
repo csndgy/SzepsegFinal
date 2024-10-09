@@ -23,5 +23,29 @@ namespace SzepsegV0._2
         {
             InitializeComponent();
         }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Kiolvassuk a szöveget a TextBox-ból
+            string felhasznaloNev = txtBeirtNev.Text;
+
+            // Ellenőrizzük, hogy nem üres-e a felhasználói név
+            if (!string.IsNullOrEmpty(felhasznaloNev))
+            {
+                // Megnyitjuk a Bejelentkezés ablakot és átadjuk neki a nevet
+                Bejelnetkzes bejelentkezesWindow = new Bejelnetkzes(felhasznaloNev);
+
+                // Bezárjuk az AdatokBeirasa ablakot
+                this.Close();
+
+                // Megnyitjuk a Bejelentkezés ablakot
+                bejelentkezesWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Kérjük, adja meg a felhasználó nevét.");
+            }
+        }
     }
 }
