@@ -18,6 +18,8 @@ namespace SzepsegV0._2
             Booking = new ObservableCollection<Booking>();
             dataGridBooking.ItemsSource = Booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
+
+
         }
 
         private void LoadDataGrid()
@@ -80,6 +82,8 @@ namespace SzepsegV0._2
                 bejelentkezesAblak.Activate();
             }
         }
+
+
     }
 
     public class Booking
