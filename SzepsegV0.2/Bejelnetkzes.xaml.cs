@@ -18,8 +18,19 @@ namespace SzepsegV0._2
             Booking = new ObservableCollection<Booking>();
             dataGridBooking.ItemsSource = Booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
+            
         }
 
+        public Bejelnetkzes(string felhasznaloNev) : this(  )
+        {
+
+            lbnFelhasznaloNeve.Content = felhasznaloNev;
+        }
+
+        public void Bejelentkezes(string felhasznaloNev)
+        {
+            // Beállítjuk a Label szövegét
+        }
         private void LoadDataGrid()
         {
             string query = "SELECT * FROM `Foglalás`"; // Use backticks if necessary
