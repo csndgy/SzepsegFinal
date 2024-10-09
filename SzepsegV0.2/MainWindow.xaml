@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Beauty Salon Booking" Height="415" Width="375"
-        >
-        
-
+        Title="Beauty Salon Booking" 
+        Height="415" 
+        Width="375">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -34,21 +33,55 @@
             </Grid.RowDefinitions>
 
             <!-- Szolgáltatás kiválasztása -->
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
-            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30"  Grid.Row="1">
-            </ComboBox>
+            <TextBlock HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Text="Válassz Szolgáltatást:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,10" 
+                       Foreground="#B3B89A" 
+                       Grid.Row="0"/>
+            <ComboBox x:Name="ServiceComboBox" 
+                      Width="200" 
+                      Height="30"  
+                      Grid.Row="1"/>
 
             <!-- Dolgozó kiválasztása -->
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="2"/>
-            <ComboBox x:Name="WorkerComboBox" Width="200" Height="30" Grid.Row="3"/>
+            <TextBlock HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Text="Válassz Dolgozót:" 
+                       FontSize="16" 
+                       FontWeight="Bold"  
+                       Foreground="#B3B89A" 
+                       Grid.Row="2"/>
+            <ComboBox x:Name="WorkerComboBox" 
+                      Width="200" 
+                      Height="30" 
+                      Grid.Row="3"/>
 
             <!-- Időpont kiválasztása -->
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Válassz időpontot:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="4"/>
-            <ComboBox x:Name="appointmentComboBox" Width="200" Height="30" Grid.Row="5"/>
+            <Label HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Content="Válassz időpontot:" 
+                   FontSize="16" 
+                   FontWeight="Bold"  
+                   Foreground="#B3B89A" 
+                   Grid.Row="4"/>
+            <ComboBox x:Name="appointmentComboBox" 
+                      Width="200" 
+                      Height="30" 
+                      Grid.Row="5"/>
 
-            <!-- Foglalás gomb a jobb alsó sarokban -->
-            <Button Content="Foglalás" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
-                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" Click="btnFoglalas_Click"/>
+            <!-- Foglalás gomb -->
+            <Button Content="Foglalás" 
+                    x:Name="btnFoglalas" 
+                    Width="100" 
+                    Height="37" 
+                    Grid.Row="6" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom" 
+                    Margin="0,0,0,5" 
+                    Click="btnFoglalas_Click"/>
         </Grid>
     </Grid>
 </Window>
