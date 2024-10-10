@@ -135,6 +135,7 @@ AND d.statusz = 1";
                             command.ExecuteNonQuery();
                             MessageBox.Show("A foglalás sikeresen létrejött!");
                             this.Close();
+                            Bejelnetkzes.LoadDataGrid();
                         }
                         catch (Exception ex)
                         {
