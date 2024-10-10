@@ -127,7 +127,7 @@ AND d.statusz = 1";
                         command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
                         command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
                         command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
-                        command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
+                        //command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
 
                         command.ExecuteNonQuery();
                         MessageBox.Show("A foglalás sikeresen létrejött!");
