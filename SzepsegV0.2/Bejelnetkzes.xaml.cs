@@ -24,7 +24,7 @@ namespace SzepsegV0._2
         public Bejelnetkzes(string felhasznaloNev) : this(  )
         {
 
-            //.Content = felhasznaloNev;
+            lbnFelhasznaloNev.Content = felhasznaloNev;
         }
 
         public void Bejelentkezes(string felhasznaloNev)
