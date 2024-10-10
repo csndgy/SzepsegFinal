@@ -18,22 +18,22 @@ namespace SzepsegV0._2
             Booking = new ObservableCollection<Booking>();
             dataGridBooking.ItemsSource = Booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
-            
+            this.DataContext = this;
         }
 
-        public Bejelnetkzes(string felhasznaloNev) : this(  )
+        public Bejelnetkzes(string felhasznaloNev) : this()
         {
-
-            //.Content = felhasznaloNev;
+            // .Content = felhasznaloNev;
         }
 
         public void Bejelentkezes(string felhasznaloNev)
         {
             // Beállítjuk a Label szövegét
         }
-        private void LoadDataGrid()
+
+        public void LoadDataGrid() // Public to allow external refresh
         {
-            string query = "SELECT * FROM `Foglalás`"; // Use backticks if necessary
+            string query = "SELECT * FROM Foglalás"; // Use backticks if necessary
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -91,8 +91,6 @@ namespace SzepsegV0._2
                 bejelentkezesAblak.Activate();
             }
         }
-
-
     }
 
     public class Booking
