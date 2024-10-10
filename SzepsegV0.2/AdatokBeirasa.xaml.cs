@@ -27,7 +27,7 @@ namespace SzepsegV0._2
         
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             // Kiolvassuk a szöveget a TextBox-ból
             string felhasznaloNev = txtBeirtNev.Text;
@@ -49,5 +49,7 @@ namespace SzepsegV0._2
                 MessageBox.Show("Kérjük, adja meg a felhasználó nevét.");
             }
         }
+
+
     }
 }

@@ -130,6 +130,7 @@ AND d.statusz = 1";
 
                         command.ExecuteNonQuery();
                         MessageBox.Show("A foglalás sikeresen létrejött!");
+                        this.Close();
                     }
                     catch (Exception ex)
                     {

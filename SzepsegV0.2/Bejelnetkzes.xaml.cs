@@ -10,20 +10,21 @@ namespace SzepsegV0._2
         private MainWindow bejelentkezesAblak;
         private readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
 
-        public ObservableCollection<Booking> Booking { get; set; }
+        public ObservableCollection<Booking> booking { get; set; }
 
         public Bejelnetkzes()
         {
             InitializeComponent();
-            Booking = new ObservableCollection<Booking>();
-            dataGridBooking.ItemsSource = Booking; // Bind DataGrid
+            booking = new ObservableCollection<Booking>();
+            dataGridBooking.ItemsSource = booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
             this.DataContext = this;
         }
 
         public Bejelnetkzes(string felhasznaloNev) : this()
         {
-            // .Content = felhasznaloNev;
+
+            lbnFelhasznaloNev.Content = felhasznaloNev;
         }
 
         public void Bejelentkezes(string felhasznaloNev)
@@ -44,7 +45,7 @@ namespace SzepsegV0._2
                     MySqlDataReader reader = command.ExecuteReader();
 
                     // Clear previous items
-                    Booking.Clear();
+                    booking.Clear();
 
                     // Read the data and add to the ObservableCollection
                     while (reader.Read())
@@ -59,11 +60,11 @@ namespace SzepsegV0._2
                             FoglalasEnd = reader.GetDateTime("foglalasEnd")
                         };
 
-                        Booking.Add(foglalas);
+                        booking.Add(foglalas);
                     }
 
                     // Check if any records were added
-                    if (Booking.Count == 0)
+                    if (booking.Count == 0)
                     {
                         MessageBox.Show("No records found in the database.");
                     }
@@ -84,13 +85,15 @@ namespace SzepsegV0._2
             if (bejelentkezesAblak == null || !bejelentkezesAblak.IsVisible)
             {
                 bejelentkezesAblak = new MainWindow();
-                bejelentkezesAblak.Show();
+                bejelentkezesAblak.Show();  
             }
             else
             {
                 bejelentkezesAblak.Activate();
             }
         }
+
+
     }
 
     public class Booking
