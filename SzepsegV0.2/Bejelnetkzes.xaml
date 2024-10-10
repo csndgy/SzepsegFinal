@@ -82,7 +82,9 @@
           Background="#2C3E4E"
             BorderBrush="#BCC3B0"
             Height="332" Grid.ColumnSpan="2">
-            <DataGrid IsReadOnly="True" x:Name="dataGridBooking" AutoGenerateColumns="True" 
+            <DataGrid IsReadOnly="True" ItemsSource="{Binding Booking}"
+                      x:Name="dataGridBooking"
+                      AutoGenerateColumns="True" 
               Background="#BCC3B0"
                 Foreground="Black" />
         </GroupBox>
