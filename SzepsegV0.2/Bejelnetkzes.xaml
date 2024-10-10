@@ -1,30 +1,15 @@
 ﻿<Window x:Class="SzepsegV0._2.Bejelnetkzes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Kezdolap" Height="450" Width="800" Background="#2C3E4E">
-    
-    
-    
-    
-    
-    
-    
-    
+        Title="Kezdolap" Height="450" Width="820" Background="#2C3E4E"
+        ResizeMode="NoResize">
     <Window.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="Styles.xaml" />
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Window.Resources>
-    
-    
-    
-    
-    
-    
-    
-    
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
@@ -32,12 +17,18 @@
         </Grid.ColumnDefinitions>
 
         <!-- Logo -->
-        <TextBlock Text="GAIA" 
+        <!--<TextBlock Text="GAIA" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" 
                    Margin="3,10,0,0" 
                    FontSize="20" 
-                   FontWeight="Bold" ></TextBlock>
+                   FontWeight="Bold" ></TextBlock>-->
+        <Image Source="pack://application:,,,/Gaia.png" 
+               Width="123" Height="33" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.ColumnSpan="2" 
+               Margin="3,10,0,0"
+                />
 
         <Label Content="Felhasználó" 
                    HorizontalAlignment="Right" 

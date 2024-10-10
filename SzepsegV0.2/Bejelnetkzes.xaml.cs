@@ -84,7 +84,7 @@ namespace SzepsegV0._2
             if (bejelentkezesAblak == null || !bejelentkezesAblak.IsVisible)
             {
                 bejelentkezesAblak = new MainWindow();
-                bejelentkezesAblak.Show();
+                bejelentkezesAblak.Show();  
             }
             else
             {

@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         Title="Beauty Salon Booking" 
         Height="415" 
-        Width="375">
+        Width="375"
+        ResizeMode="NoResize">
 
     <Window.Resources>
         <ResourceDictionary>
