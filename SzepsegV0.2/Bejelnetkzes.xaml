@@ -35,6 +35,7 @@
                    VerticalAlignment="Top" 
                    Margin="0,10,20,0" 
                    FontSize="14" 
+                   x:Name="lbnFelhasznaloNev"
                    Foreground="LightGray" Grid.Column="1" Height="33" Width="123"/>
 
         <!-- Foglalás gombok -->
