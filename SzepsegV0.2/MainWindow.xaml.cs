@@ -99,6 +99,7 @@ AND d.statusz = 1";
 
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
+
             if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem != null && appointmentComboBox.SelectedItem != null)
             {
                 string szolgaltatas = ServiceComboBox.SelectedItem.ToString();
@@ -106,7 +107,7 @@ AND d.statusz = 1";
                 string idopont = appointmentComboBox.SelectedItem.ToString();
 
                 DateTime foglalasStart = DateTime.Parse(idopont); 
-                DateTime foglalasEnd = foglalasStart.AddMinutes(30); 
+               // DateTime foglalasEnd = foglalasStart.Add(foglalasStart.Minute; 
 
                 int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
                 int dolgozoID = GetDolgozoID(dolgozo);
@@ -131,6 +132,7 @@ AND d.statusz = 1";
                         command.ExecuteNonQuery();
                         MessageBox.Show("A foglalás sikeresen létrejött!");
                         this.Close();
+                        Bejelnetkzes.LoadDataGrid();
                     }
                     catch (Exception ex)
                     {
@@ -142,6 +144,7 @@ AND d.statusz = 1";
             {
                 MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
             }
+
         }
 
         private int GetSzolgaltatasID(string szolgaltatasKategoria)
