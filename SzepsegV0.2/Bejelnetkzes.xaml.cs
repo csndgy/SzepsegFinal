@@ -10,13 +10,13 @@ namespace SzepsegV0._2
         private MainWindow bejelentkezesAblak;
         private readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
 
-        public ObservableCollection<Booking> Booking { get; set; }
+        public ObservableCollection<Booking> booking { get; set; }
 
         public Bejelnetkzes()
         {
             InitializeComponent();
-            Booking = new ObservableCollection<Booking>();
-            dataGridBooking.ItemsSource = Booking; // Bind DataGrid
+            booking = new ObservableCollection<Booking>();
+            dataGridBooking.ItemsSource = booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
             
         }
@@ -44,7 +44,7 @@ namespace SzepsegV0._2
                     MySqlDataReader reader = command.ExecuteReader();
 
                     // Clear previous items
-                    Booking.Clear();
+                    booking.Clear();
 
                     // Read the data and add to the ObservableCollection
                     while (reader.Read())
@@ -59,11 +59,11 @@ namespace SzepsegV0._2
                             FoglalasEnd = reader.GetDateTime("foglalasEnd")
                         };
 
-                        Booking.Add(foglalas);
+                        booking.Add(foglalas);
                     }
 
                     // Check if any records were added
-                    if (Booking.Count == 0)
+                    if (booking.Count == 0)
                     {
                         MessageBox.Show("No records found in the database.");
                     }
@@ -92,7 +92,35 @@ namespace SzepsegV0._2
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGridBooking.SelectedIndex < 0)
+            {
+                MessageBox.Show("Nincs kijelölt elem!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                for (int i = dataGridBooking.SelectedItems.Count - 1; i >= 0; i--)
+                {
+                    Booking selectedBooking = (Booking)dataGridBooking.SelectedItems[i];
+
+                    // Create DELETE command
+                    string deleteQuery = "DELETE FROM `Foglalás` WHERE `foglalasID` = @foglalasID";
+                    using (MySqlCommand command = new MySqlCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@foglalasID", selectedBooking.FoglalasID);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Remove the booking from the ObservableCollection
+                    booking.Remove(selectedBooking);
+                }
+            }
+        }
     }
 
     public class Booking

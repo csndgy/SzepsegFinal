@@ -21,7 +21,7 @@
         <Label Style="{StaticResource CustomLabelStyle}" Content="Felhasználó név" HorizontalAlignment="Left" Height="24" Margin="58,130,0,0" VerticalAlignment="Top" Width="230" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
         <Label Style="{StaticResource CustomLabelStyle}" Content="   Szépség, amit a &#xA;természet inspirált" HorizontalAlignment="Left" Height="89" Margin="404,10,0,0" VerticalAlignment="Top" Width="282" VerticalContentAlignment="Center" FontSize="28" Padding="0,0,50,0" ScrollViewer.CanContentScroll="True" HorizontalContentAlignment="Center"/>
         <Canvas HorizontalAlignment="Left" Height="283" Margin="375,114,0,0" VerticalAlignment="Top" Width="340"/>
-        <Button Content="Bejelentkezés" HorizontalAlignment="Left" Height="40" Margin="110,250,15,0" VerticalAlignment="Top" Width="112" Click="Button_Click"/>
+        <Button Content="Bejelentkezés" HorizontalAlignment="Left" Height="40" Margin="110,250,15,0" VerticalAlignment="Top" Width="112" Click="btnLogin_Click" x:Name="btnLogin"/>
         <Canvas HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
         <Image Source="pack://application:,,,/preview.png" HorizontalAlignment="Left" Height="283" Margin="375,114,0,0" VerticalAlignment="Top" Width="340"/>
         <Image Source="pack://application:,,,/Gaia.png" HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>

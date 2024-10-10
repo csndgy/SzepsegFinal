@@ -44,14 +44,14 @@
                    VerticalAlignment="Top" 
                    Margin="0,10,20,0" 
                    FontSize="14" 
-                   Foreground="LightGray" Grid.Column="1" Height="19" Width="72"/>
+                   Foreground="LightGray" Grid.Column="1" Height="33" Width="123"/>
 
         <!-- Foglalás gombok -->
         <Button Content="Időpont foglalás" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="13,100,0,0" 
-                Width="150" 
+                Margin="13,120,0,0" 
+                Width="155" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
@@ -59,16 +59,26 @@
                 x:Name="btnFoglalas"  
                 Grid.Column="1" Click="btnFoglalas_Click"/>
 
-        <Button Content="Időpont törlés/módosítás" 
+        <Button Content="Időpont törlés" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="13,160,0,0" 
-                Width="150" 
+                Margin="13,180,0,0" 
+                Width="155" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
-                FontSize="11" 
-                Grid.Column="1"/>
+                FontSize="14" 
+                Grid.Column="1" Click="Button_Click"/>
+        <Button Content="Időpont módosítás" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top" 
+        Margin="13,240,0,0" 
+        Width="155" 
+        Height="40" 
+        Background="#BCC3B0" 
+        Foreground="Black" 
+        FontSize="14" 
+        Grid.Column="1"/>
 
         <!-- Foglalások listája -->
         <GroupBox Header="A felhasználó foglalásai" 
