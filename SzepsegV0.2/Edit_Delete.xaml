@@ -15,38 +15,5 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Background="#2E403B">
-        <Grid.Clip>
-            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,375,400" />
-        </Grid.Clip>
-
-        <Grid Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Szolgáltatás kiválasztása -->
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Szolgáltatást:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="#B3B89A" Grid.Row="0"/>
-            <ComboBox x:Name="ServiceComboBox" Width="200" Height="30"  Grid.Row="1">
-            </ComboBox>
-
-            <!-- Dolgozó kiválasztása -->
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Válassz Dolgozót:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="2"/>
-            <ComboBox x:Name="WorkerComboBox" Width="200" Height="30" Grid.Row="3"/>
-
-            <!-- Időpont kiválasztása -->
-            <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Válassz időpontot:" FontSize="16" FontWeight="Bold"  Foreground="#B3B89A" Grid.Row="4"/>
-            <ComboBox x:Name="appointmentComboBox" Width="200" Height="30" Grid.Row="5"/>
-
-            <!-- Foglalás gomb a jobb alsó sarokban -->
-            <Button Content="Mentés" x:Name="btnFoglalas" Width="100" Height="37" Grid.Row="6" 
-                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
-        </Grid>
-    </Grid>
+   
 </Window>

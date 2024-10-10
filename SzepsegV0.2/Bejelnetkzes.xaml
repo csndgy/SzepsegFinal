@@ -1,7 +1,15 @@
 ﻿<Window x:Class="SzepsegV0._2.Bejelnetkzes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Kezdolap" Height="450" Width="800" Background="#2C3E4E">
+        Title="Kezdolap" Height="450" Width="820" Background="#2C3E4E"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
@@ -9,30 +17,32 @@
         </Grid.ColumnDefinitions>
 
         <!-- Logo -->
-        <Image  HorizontalAlignment="Left" VerticalAlignment="Top" Source="pack://application:,,,/Gaia.png"  Margin="3,10,0,0" Grid.ColumnSpan="2" Width="123" Height="33" />
         <!--<TextBlock Text="GAIA" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top" 
                    Margin="3,10,0,0" 
                    FontSize="20" 
-                   FontWeight="Bold" 
-                   Foreground="LightGreen" Height="27" Width="49" Grid.Column="1"/>-->
+                   FontWeight="Bold" ></TextBlock>-->
+        <Image Source="pack://application:,,,/Gaia.png" 
+               Width="123" Height="33" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Grid.ColumnSpan="2" 
+               Margin="3,10,0,0"
+                />
 
-        <Label     HorizontalAlignment="Right" 
+        <Label Content="Felhasználó" 
+                   HorizontalAlignment="Right" 
                    VerticalAlignment="Top" 
-                   Margin="0,10,25,0"
-                   FontSize="15"
-                   x:Name="lbnFelhasznaloNeve"
-                   VerticalContentAlignment="Center"
-                   HorizontalContentAlignment="Center"
-                   Foreground="LightGray" Grid.Column="1" Height="33" Width="120"/>
+                   Margin="0,10,20,0" 
+                   FontSize="14" 
+                   Foreground="LightGray" Grid.Column="1" Height="33" Width="123"/>
 
         <!-- Foglalás gombok -->
         <Button Content="Időpont foglalás" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="13,100,0,0" 
-                Width="150" 
+                Margin="13,120,0,0" 
+                Width="155" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
@@ -40,16 +50,26 @@
                 x:Name="btnFoglalas"  
                 Grid.Column="1" Click="btnFoglalas_Click"/>
 
-        <Button Content="Időpont törlés/módosítás" 
+        <Button Content="Időpont törlés" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top" 
-                Margin="13,160,0,0" 
-                Width="150" 
+                Margin="13,180,0,0" 
+                Width="155" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 
-                FontSize="11" 
-                Grid.Column="1"/>
+                FontSize="14" 
+                Grid.Column="1" Click="Button_Click"/>
+        <Button Content="Időpont módosítás" 
+        HorizontalAlignment="Left" 
+        VerticalAlignment="Top" 
+        Margin="13,240,0,0" 
+        Width="155" 
+        Height="40" 
+        Background="#BCC3B0" 
+        Foreground="Black" 
+        FontSize="14" 
+        Grid.Column="1"/>
 
         <!-- Foglalások listája -->
         <GroupBox Header="A felhasználó foglalásai" 
@@ -61,7 +81,7 @@
           Background="#2C3E4E"
             BorderBrush="#BCC3B0"
             Height="332" Grid.ColumnSpan="2">
-            <DataGrid x:Name="dataGridBooking" AutoGenerateColumns="True" 
+            <DataGrid IsReadOnly="True" x:Name="dataGridBooking" AutoGenerateColumns="True" 
               Background="#BCC3B0"
                 Foreground="Black" />
         </GroupBox>
@@ -70,7 +90,7 @@
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Bottom" 
                 Margin="13,0,0,10" 
-                Width="109" 
+                Width="150" 
                 Height="40" 
                 Background="#BCC3B0" 
                 Foreground="Black" 

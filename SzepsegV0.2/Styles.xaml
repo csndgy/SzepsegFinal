@@ -14,11 +14,17 @@
             </Grid>
         </Border>
     </ControlTemplate>
+
     <!-- Label sablon -->
     <Style TargetType="Label" x:Key="CustomLabelStyle">
         <Setter Property="Foreground" Value="#B3B89A"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <!-- Szebbé téve -->
+        <Setter Property="FontWeight" Value="Bold"/>
+        <!-- Szebbé téve -->
     </Style>
-    <!--Image sablon -->
+
+    <!-- Image sablon -->
     <Style TargetType="ContentControl">
         <Setter Property="Template">
             <Setter.Value>
@@ -30,15 +36,19 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <!-- TextBox sablon -->
     <Style TargetType="TextBox" x:Key="CustomTextBoxStyle">
         <Setter Property="Foreground" Value="#2E403B"/>
         <Setter Property="Background" Value="#B3B89A"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <!-- Szebbé téve -->
+        <Setter Property="FontWeight" Value="Normal"/>
+        <!-- Szebbé téve -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="5">
-                        <!-- Kerekítés hozzáadva -->
                         <ScrollViewer x:Name="PART_ContentHost" />
                     </Border>
                 </ControlTemplate>
@@ -53,6 +63,10 @@
         <Setter Property="BorderBrush" Value="#B3B89A"/>
         <Setter Property="BorderThickness" Value="4"/>
         <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <!-- Szebbé téve -->
+        <Setter Property="FontWeight" Value="Bold"/>
+        <!-- Szebbé téve -->
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -89,6 +103,10 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <!-- Szebbé téve -->
+        <Setter Property="FontWeight" Value="Normal"/>
+        <!-- Szebbé téve -->
     </Style>
 
     <!-- Stílus a ComboBox-hoz -->
@@ -118,7 +136,9 @@
                             Margin="3,3,23,3" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left" 
-                            Foreground="#2E403B"/>
+                            Foreground="#2E403B"
+                            FontFamily="Segoe UI" 
+                            FontWeight="Normal"/> <!-- Szebbé téve -->
 
                             <TextBox x:Name="PART_EditableTextBox"
                             Style="{StaticResource ComboBoxTextBox}" 
@@ -158,7 +178,6 @@
             </Setter.Value>
         </Setter>
 
-  
         <!-- Szöveg és háttér színek beállítása a ComboBox elemekre -->
         <Setter Property="Foreground" Value="#D1DABF"/>
         <Setter Property="Background" Value="#727D60"/>
@@ -177,7 +196,9 @@
                                     VerticalAlignment="Center" 
                                     Margin="10,0" 
                                     Text="{TemplateBinding Content}" 
-                                    Foreground="{TemplateBinding Foreground}"/>
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Normal"/>
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
@@ -200,14 +221,7 @@
         <Setter Property="Background" Value="#727D60"/>
         <Setter Property="BorderBrush" Value="#B3B89A"/>
         <Setter Property="BorderThickness" Value="4"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="DataGrid">
-                    <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+
         <Setter Property="RowBackground" Value="#5E6750"/>
         <Setter Property="Foreground" Value="#B3B89A"/>
         <Setter Property="ColumnHeaderStyle">

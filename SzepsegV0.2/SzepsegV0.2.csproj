@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Gaia.png" />
     <Resource Include="preview.png" />
   </ItemGroup>
