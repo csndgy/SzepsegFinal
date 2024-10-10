@@ -100,7 +100,8 @@ AND d.statusz = 1";
 
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem != null && appointmentComboBox.SelectedItem != null)
+            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem
+                != null && appointmentDatePicker.SelectedDate != null)
             {
                 string szolgaltatas = ServiceComboBox.SelectedItem.ToString();
                 string dolgozo = WorkerComboBox.SelectedItem.ToString();
