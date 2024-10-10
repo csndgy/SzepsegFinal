@@ -18,10 +18,10 @@ namespace SzepsegV0._2
             booking = new ObservableCollection<Booking>();
             dataGridBooking.ItemsSource = booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
-            
+            this.DataContext = this;
         }
 
-        public Bejelnetkzes(string felhasznaloNev) : this(  )
+        public Bejelnetkzes(string felhasznaloNev) : this()
         {
 
             lbnFelhasznaloNev.Content = felhasznaloNev;
@@ -31,9 +31,38 @@ namespace SzepsegV0._2
         {
             // Beállítjuk a Label szövegét
         }
-        private void LoadDataGrid()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string query = "SELECT * FROM `Foglalás`"; // Use backticks if necessary
+            if (dataGridBooking.SelectedIndex < 0)
+            {
+                MessageBox.Show("Nincs kijelölt elem!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                for (int i = dataGridBooking.SelectedItems.Count - 1; i >= 0; i--)
+                {
+                    Booking selectedBooking = (Booking)dataGridBooking.SelectedItems[i];
+
+                    // Create DELETE command
+                    string deleteQuery = "DELETE FROM `Foglalás` WHERE `foglalasID` = @foglalasID";
+                    using (MySqlCommand command = new MySqlCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@foglalasID", selectedBooking.FoglalasID);
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Remove the booking from the ObservableCollection
+                    booking.Remove(selectedBooking);
+                }
+            }
+        }
+        public void LoadDataGrid() // Public to allow external refresh
+        {
+            string query = "SELECT * FROM Foglalás"; // Use backticks if necessary
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -92,35 +121,7 @@ namespace SzepsegV0._2
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (dataGridBooking.SelectedIndex < 0)
-            {
-                MessageBox.Show("Nincs kijelölt elem!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                for (int i = dataGridBooking.SelectedItems.Count - 1; i >= 0; i--)
-                {
-                    Booking selectedBooking = (Booking)dataGridBooking.SelectedItems[i];
-
-                    // Create DELETE command
-                    string deleteQuery = "DELETE FROM `Foglalás` WHERE `foglalasID` = @foglalasID";
-                    using (MySqlCommand command = new MySqlCommand(deleteQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@foglalasID", selectedBooking.FoglalasID);
-                        command.ExecuteNonQuery();
-                    }
-
-                    // Remove the booking from the ObservableCollection
-                    booking.Remove(selectedBooking);
-                }
-            }
-        }
     }
 
     public class Booking
