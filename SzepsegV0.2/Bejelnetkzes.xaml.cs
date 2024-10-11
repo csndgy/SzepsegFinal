@@ -8,14 +8,12 @@ namespace SzepsegV0._2
     public partial class Bejelnetkzes : Window
     {
         private MainWindow bejelentkezesAblak;
-        private readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
+        private static readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
 
-        public ObservableCollection<Booking> booking { get; set; }
-
+        static ObservableCollection<Booking> booking = new ObservableCollection<Booking>();
         public Bejelnetkzes()
         {
             InitializeComponent();
-            booking = new ObservableCollection<Booking>();
             dataGridBooking.ItemsSource = booking; // Bind DataGrid
             LoadDataGrid(); // Load data from the database
             this.DataContext = this;
@@ -60,7 +58,7 @@ namespace SzepsegV0._2
                 }
             }
         }
-        public void LoadDataGrid() // Public to allow external refresh
+        public static void LoadDataGrid() // Public to allow external refresh
         {
             string query = "SELECT * FROM Foglalás"; // Use backticks if necessary
 
