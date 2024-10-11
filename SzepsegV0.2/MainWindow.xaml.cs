@@ -105,8 +105,10 @@ AND d.statusz = 1";
                 string dolgozo = WorkerComboBox.SelectedItem.ToString();
                 string idopont = appointmentComboBox.SelectedItem.ToString();
 
-                DateTime foglalasStart = DateTime.Parse(idopont); 
-                DateTime foglalasEnd = foglalasStart.AddMinutes(30); 
+                DateTime foglalasStart = DateTime.Parse(idopont);
+                //DateTime foglalasEnd = foglalasStart.AddMinutes(30); 
+                int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
+                DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
 
                 int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
                 int dolgozoID = GetDolgozoID(dolgozo);
@@ -127,7 +129,6 @@ AND d.statusz = 1";
                         command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
                         command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
                         command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
-
                         command.ExecuteNonQuery();
                         MessageBox.Show("A foglalás sikeresen létrejött!");
                         this.Close();
@@ -147,6 +148,18 @@ AND d.statusz = 1";
         private int GetSzolgaltatasID(string szolgaltatasKategoria)
         {
             string lekerdezes = "SELECT szolgaltatasID FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
+
+        private int GetSzolgaltatasIdotartam(string szolgaltatasKategoria)
+        {
+            string lekerdezes = "SELECT TIME_TO_SEC(TIMEDIFF(szolgaltatasIdotartam, '00:00:00')) / 60 FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
