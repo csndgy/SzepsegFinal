@@ -112,8 +112,7 @@ AND d.statusz = 1";
 
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (cbServices.SelectedItem != null && cbWorker.SelectedItem
-                != null && dpAppointment.SelectedDate != null)
+            if (cbServices.SelectedItem != null && cbWorker.SelectedItem != null && dpAppointment.SelectedDate != null)
             {
                 string szolgaltatas = cbServices.SelectedItem.ToString();
                 string dolgozo = cbWorker.SelectedItem.ToString();
@@ -123,16 +122,16 @@ AND d.statusz = 1";
                 int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
                 DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
 
-                // Check for existing bookings
-                if (IsTimeSlotAvailable(foglalasStart, dolgozo))
+                // Ellenőrizzük, hogy az időpont és a szolgáltatás szabad-e
+                if (IsTimeSlotAvailable(foglalasStart, dolgozo, szolgaltatas))
                 {
                     int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
                     int dolgozoID = GetDolgozoID(dolgozo);
-                    int ugyfelID = 1;
+                    int ugyfelID = 1; // Ezt valószínűleg dinamikusan szeretnéd, jelenleg fixen 1
 
                     string lekerdezes = @"
-                INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
-                VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
+            INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
+            VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
 
                     using (MySqlConnection connection = new MySqlConnection(connectionString))
                     {
@@ -167,10 +166,11 @@ AND d.statusz = 1";
                 MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
             }
         }
-    
 
-    // Method to check if the time slot is available
-    private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo)
+
+
+        // Method to check if the time slot is available
+        private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo)
     {
         int dolgozoID = GetDolgozoID(dolgozo);
 
@@ -216,8 +216,34 @@ AND d.statusz = 1";
         }
     }
 
+        private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo, string szolgaltatas)
+        {
+            int dolgozoID = GetDolgozoID(dolgozo);
+            int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
 
-    private void FillComboBoxWithTimeSlots()
+            string query = @"
+        SELECT COUNT(*) FROM Foglalás 
+        WHERE dolgozoID = @dolgozoID 
+        AND szolgaltatasID = @szolgaltatasID 
+        AND ((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+                command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
+                command.Parameters.AddWithValue("@foglalasEnd", startTime.AddMinutes(30));  // Fél órás időközök
+                command.Parameters.AddWithValue("@foglalasStart", startTime);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count == 0; // Return true if no overlapping bookings found
+            }
+        }
+
+
+
+        private void FillComboBoxWithTimeSlots()
     {
         DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
         DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
