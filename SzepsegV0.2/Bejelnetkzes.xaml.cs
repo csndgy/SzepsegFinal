@@ -120,9 +120,6 @@ namespace SzepsegV0._2
             }
         }
 
-
-        
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (adatokBeirasa == null || !adatokBeirasa.IsVisible)
@@ -135,10 +132,8 @@ namespace SzepsegV0._2
             {
                 adatokBeirasa.Activate();
             }
-
         }
-        }
-        
+    }
 
     public class Booking
     {

@@ -10,9 +10,9 @@ namespace SzepsegV0._2
     {
         int szolgaltatasID, szolgaltatasAr;
         string szolgaltatasKategoria;
-        DateTime szolgaltatasIdotartalma;
+        TimeSpan szolgaltatasIdotartalma;
 
-        public Szolgaltatas(int szolgaltatasID, int szolgaltatasAr, string szolgaltatasKategoria, DateTime szolgaltatasIdotartalma)
+        public Szolgaltatas(int szolgaltatasID, int szolgaltatasAr, string szolgaltatasKategoria, TimeSpan szolgaltatasIdotartalma)
         {
             this.szolgaltatasID = szolgaltatasID;
             this.szolgaltatasAr = szolgaltatasAr;
@@ -23,7 +23,7 @@ namespace SzepsegV0._2
         public int SzolgaltatasID { get => szolgaltatasID; set => szolgaltatasID = value; }
         public int SzolgaltatasAr { get => szolgaltatasAr; set => szolgaltatasAr = value; }
         public string SzolgaltatasKategoria { get => szolgaltatasKategoria; set => szolgaltatasKategoria = value; }
-        public DateTime SzolgaltatasIdotartalma { get => szolgaltatasIdotartalma; set => szolgaltatasIdotartalma = value; }
+        public TimeSpan SzolgaltatasIdotartalma { get => szolgaltatasIdotartalma; set => szolgaltatasIdotartalma = value; }
     }
 }
 
