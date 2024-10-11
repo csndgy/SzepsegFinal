@@ -97,9 +97,11 @@ AND d.statusz = 1";
             }
         }
 
+
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem != null && appointmentComboBox.SelectedItem != null)
+            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem
+                != null && appointmentDatePicker.SelectedDate != null)
             {
                 string szolgaltatas = ServiceComboBox.SelectedItem.ToString();
                 string dolgozo = WorkerComboBox.SelectedItem.ToString();
@@ -110,13 +112,16 @@ AND d.statusz = 1";
                 int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
                 DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
 
-                int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
-                int dolgozoID = GetDolgozoID(dolgozo);
-                int ugyfelID = 1;
+                // Check for existing bookings
+                if (IsTimeSlotAvailable(foglalasStart, dolgozo))
+                {
+                    int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
+                    int dolgozoID = GetDolgozoID(dolgozo);
+                    int ugyfelID = 1;
 
-                string lekerdezes = @"
-            INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
-            VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
+                    string lekerdezes = @"
+                INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
+                VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
@@ -129,6 +134,7 @@ AND d.statusz = 1";
                         command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
                         command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
                         command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
+
                         command.ExecuteNonQuery();
                         MessageBox.Show("A foglalás sikeresen létrejött!");
                         this.Close();
@@ -144,30 +150,42 @@ AND d.statusz = 1";
                 MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
             }
         }
+    
 
-        private int GetSzolgaltatasID(string szolgaltatasKategoria)
-        {
-            string lekerdezes = "SELECT szolgaltatasID FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
-                command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
-        }
+    // Method to check if the time slot is available
+    private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo)
+    {
+        int dolgozoID = GetDolgozoID(dolgozo);
 
-        private int GetSzolgaltatasIdotartam(string szolgaltatasKategoria)
+        string query = "SELECT COUNT(*) FROM Foglalás WHERE dolgozoID = @dolgozoID AND " +
+                       "((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
+
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
-            string lekerdezes = "SELECT TIME_TO_SEC(TIMEDIFF(szolgaltatasIdotartam, '00:00:00')) / 60 FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
-                command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+            command.Parameters.AddWithValue("@foglalasEnd", startTime.AddMinutes(30));
+            command.Parameters.AddWithValue("@foglalasStart", startTime);
+
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            return count == 0; // Return true if no overlapping bookings found
         }
+    }
+
+
+
+    private int GetSzolgaltatasID(string szolgaltatasKategoria)
+    {
+        string lekerdezes = "SELECT szolgaltatasID FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+            command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
+            return Convert.ToInt32(command.ExecuteScalar());
+        }
+    }
 
         private int GetDolgozoID(string dolgozoNev)
         {
@@ -182,22 +200,22 @@ AND d.statusz = 1";
         }
 
 
-        private void FillComboBoxWithTimeSlots()
+    private void FillComboBoxWithTimeSlots()
+    {
+        DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
+        DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
+
+        while (startTime <= endTime)
         {
-            DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
-            DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
-
-            while (startTime <= endTime)
-            {
-                appointmentComboBox.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
-                startTime = startTime.AddMinutes(30); // Félórás lépés
-            }
+            appointmentComboBox.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
+            startTime = startTime.AddMinutes(30); // Félórás lépés
         }
-
-        //private void btnFoglalas_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
-        //    bejelnetkzes.Show();
-        //}
     }
+
+    //private void btnFoglalas_Click(object sender, RoutedEventArgs e)
+    //{
+    //    Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
+    //    bejelnetkzes.Show();
+    //}
+}
 }
