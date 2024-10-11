@@ -98,6 +98,6 @@
                 Background="#BCC3B0" 
                 Foreground="Black" 
                 FontSize="14" 
-                Grid.Column="1"/>
+                Grid.Column="1" Click="Button_Click_1"/>
     </Grid>
 </Window>

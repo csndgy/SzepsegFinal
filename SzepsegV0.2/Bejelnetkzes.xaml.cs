@@ -7,6 +7,7 @@ namespace SzepsegV0._2
 {
     public partial class Bejelnetkzes : Window
     {
+        private AdatokBeirasa adatokBeirasa;
         private MainWindow bejelentkezesAblak;
         private static readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
 
@@ -120,7 +121,24 @@ namespace SzepsegV0._2
         }
 
 
-    }
+        
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (adatokBeirasa == null || !adatokBeirasa.IsVisible)
+            {
+                adatokBeirasa = new AdatokBeirasa();
+                adatokBeirasa.Show();
+                this.Close();
+            }
+            else
+            {
+                adatokBeirasa.Activate();
+            }
+
+        }
+        }
+        
 
     public class Booking
     {
