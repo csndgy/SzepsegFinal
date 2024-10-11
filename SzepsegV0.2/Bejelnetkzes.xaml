@@ -87,7 +87,7 @@
                       x:Name="dataGridBooking"
                       AutoGenerateColumns="True" 
               Background="#BCC3B0"
-                Foreground="Black" />
+                Foreground="Black"></DataGrid>
         </GroupBox>
 
         <Button Content="Kijelentkezés" 

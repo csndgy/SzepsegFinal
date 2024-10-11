@@ -59,9 +59,14 @@ namespace SzepsegV0._2
                 }
             }
         }
-        public static void LoadDataGrid() // Public to allow external refresh
+        public static void LoadDataGrid()
         {
-            string query = "SELECT * FROM Foglalás"; // Use backticks if necessary
+            string query = @"SELECT f.foglalasID, f.szolgaltatasID, f.dolgozoID, f.ugyfelID, f.foglalasStart, f.foglalasEnd,
+                            s.szolgaltatasKategoria, d.dolgozoFirstName, d.dolgozoLastName, u.ugyfelFirstName, u.ugyfelLastName
+                     FROM Foglalás f
+                     JOIN Szolgáltatás s ON f.szolgaltatasID = s.szolgaltatasID
+                     JOIN dolgozók d ON f.dolgozoID = d.dolgozoID
+                     JOIN ügyfél u ON f.ugyfelID = u.ugyfelID";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -71,18 +76,18 @@ namespace SzepsegV0._2
                     MySqlCommand command = new MySqlCommand(query, connection);
                     MySqlDataReader reader = command.ExecuteReader();
 
-                    // Clear previous items
+                    // Előző elemek törlése
                     booking.Clear();
 
-                    // Read the data and add to the ObservableCollection
+                    // Az új adatok betöltése
                     while (reader.Read())
                     {
                         Booking foglalas = new Booking
                         {
                             FoglalasID = reader.GetInt32("foglalasID"),
-                            SzolgaltatasID = reader.GetInt32("szolgaltatasID"),
-                            DolgozoID = reader.GetInt32("dolgozoID"),
-                            UgyfelID = reader.GetInt32("ugyfelID"),
+                            Szolgaltatas = reader.GetString("szolgaltatasKategoria"),
+                            DolgozoNev = reader.GetString("dolgozoFirstName") + " " + reader.GetString("dolgozoLastName"),
+                            UgyfelNev = reader.GetString("ugyfelFirstName") + " " + reader.GetString("ugyfelLastName"),
                             FoglalasStart = reader.GetDateTime("foglalasStart"),
                             FoglalasEnd = reader.GetDateTime("foglalasEnd")
                         };
@@ -90,7 +95,6 @@ namespace SzepsegV0._2
                         booking.Add(foglalas);
                     }
 
-                    // Check if any records were added
                     if (booking.Count == 0)
                     {
                         MessageBox.Show("No records found in the database.");
@@ -106,6 +110,7 @@ namespace SzepsegV0._2
                 }
             }
         }
+
 
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
@@ -139,9 +144,9 @@ namespace SzepsegV0._2
     public class Booking
     {
         public int FoglalasID { get; set; }
-        public int SzolgaltatasID { get; set; }
-        public int DolgozoID { get; set; }
-        public int UgyfelID { get; set; }
+        public string Szolgaltatas { get; set; }  // Szolgáltatás neve
+        public string DolgozoNev { get; set; }    // Dolgozó teljes neve
+        public string UgyfelNev { get; set; }     // Ügyfél teljes neve
         public DateTime FoglalasStart { get; set; }
         public DateTime FoglalasEnd { get; set; }
     }

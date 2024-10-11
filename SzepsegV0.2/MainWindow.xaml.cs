@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Diagnostics.Eventing.Reader;
 
 namespace SzepsegV0._2
 {
@@ -110,45 +111,72 @@ AND d.statusz = 1";
         }
 
 
+
+
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (cbServices.SelectedItem != null && cbWorker.SelectedItem
-                != null && dpAppointment.SelectedDate != null)
+            if (cbServices.SelectedItem != null && cbWorker.SelectedItem != null && cbAppointment.SelectedItem != null && dpAppointment.SelectedDate != null)
             {
-                string szolgaltatas = cbServices.SelectedItem.ToString();
-                string dolgozo = cbWorker.SelectedItem.ToString();
-                string idopont = cbAppointment.SelectedItem.ToString();
-
-                DateTime foglalasStart = DateTime.Parse(idopont);
-                DateTime foglalasEnd = foglalasStart.AddMinutes(30);
-
-                int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
-                int dolgozoID = GetDolgozoID(dolgozo);
-                int ugyfelID = 1;
-
-                string lekerdezes = @"
-            INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
-            VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                if (cbAppointment.SelectedItem != null)
                 {
-                    try
+
+
+                    string szolgaltatas = cbServices.SelectedItem.ToString();
+                    string dolgozo = cbWorker.SelectedItem.ToString();
+                    string idopont = cbAppointment.SelectedItem.ToString();
+                    DateTime selectedDate = (DateTime)dpAppointment.SelectedDate;
+
+                    DateTime foglalasStart = DateTime.Parse($"{selectedDate.ToString("yyyy-MM-dd")} {idopont}");
+
+                    // Ellenőrizzük, hogy a kiválasztott időpont a jövőben van-e
+                    if (foglalasStart < DateTime.Now)
                     {
-                        connection.Open();
-                        MySqlCommand command = new MySqlCommand(lekerdezes, connection);
-                        command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
-                        command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
-                        command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
-                        command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
-                        command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("A foglalás sikeresen létrejött!");
-                        this.Close();
+                        MessageBox.Show("Nem lehet időpontot foglalni a múltba!");
+                        return;
                     }
-                    catch (Exception ex)
+
+                    int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
+                    DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
+                    if (IsTimeSlotAvailable(foglalasStart, dolgozo, szolgaltatas))
                     {
-                        MessageBox.Show("Hiba történt a foglalás során: " + ex.Message);
+                        int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
+                        int dolgozoID = GetDolgozoID(dolgozo);
+                        int ugyfelID = 1;
+
+                        string lekerdezes = @"
+        INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
+        VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
+
+                        using (MySqlConnection connection = new MySqlConnection(connectionString))
+                        {
+                            try
+                            {
+                                connection.Open();
+                                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                                command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
+                                command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+                                command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
+                                command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
+                                command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
+                                command.ExecuteNonQuery();
+                                MessageBox.Show("A foglalás sikeresen létrejött!");
+                                this.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Hiba történt a foglalás során: " + ex.Message);
+                            }
+                        }
+
                     }
+                    else
+                    {
+                        MessageBox.Show("anyad");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("idopont fog", "hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
@@ -156,6 +184,7 @@ AND d.statusz = 1";
                 MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
             }
         }
+
 
         private int GetSzolgaltatasID(string szolgaltatasKategoria)
         {
@@ -169,7 +198,7 @@ AND d.statusz = 1";
             }
         }
 
-        
+
 
         private int GetDolgozoID(string dolgozoNev)
         {
@@ -189,12 +218,39 @@ AND d.statusz = 1";
             DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
             DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
 
-        while (startTime <= endTime)
-        {
-            cbAppointment.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
-            startTime = startTime.AddMinutes(30); // Félórás lépés
+            while (startTime <= endTime)
+            {
+                cbAppointment.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
+                startTime = startTime.AddMinutes(30); // Félórás lépés
+            }
+
+
         }
-    }
+
+        private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo, string szolgaltatas)
+        {
+            int dolgozoID = GetDolgozoID(dolgozo);
+            int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
+
+            string query = @"
+SELECT COUNT(*) FROM Foglalás
+WHERE dolgozoID = @dolgozoID
+AND szolgaltatasID = @szolgaltatasID
+AND ((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+                command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
+                command.Parameters.AddWithValue("@foglalasEnd", startTime.AddMinutes(30));  // Fél órás időközök
+                command.Parameters.AddWithValue("@foglalasStart", startTime);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count == 0; // Return true if no overlapping bookings found
+            }
+        }
 
         //private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         //{

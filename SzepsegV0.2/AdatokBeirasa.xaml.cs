@@ -50,6 +50,26 @@ namespace SzepsegV0._2
             }
         }
 
+        private void txtBeirtNev_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Csak betűk engedélyezése (A-Z, a-z)
+            string input = txtBeirtNev.Text;
+            StringBuilder filtered = new StringBuilder();
 
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c) || char.IsWhiteSpace(c)) // Csak betűk és szóközök engedélyezettek
+                {
+                    filtered.Append(c);
+                }
+            }
+
+            // Ha a beírt szöveg eltér a szűrt szövegtől, frissítjük a TextBox tartalmát
+            if (txtBeirtNev.Text != filtered.ToString())
+            {
+                txtBeirtNev.Text = filtered.ToString();
+                txtBeirtNev.CaretIndex = filtered.Length; // Helyezzük a kurzort a szöveg végére
+            }
+        }
     }
 }
