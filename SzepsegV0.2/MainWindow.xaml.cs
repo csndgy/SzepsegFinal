@@ -106,8 +106,8 @@ AND d.statusz = 1";
                 string dolgozo = WorkerComboBox.SelectedItem.ToString();
                 string idopont = appointmentComboBox.SelectedItem.ToString();
 
-                DateTime foglalasStart = DateTime.Parse(idopont); 
-               // DateTime foglalasEnd = foglalasStart.Add(foglalasStart.Minute; 
+                DateTime foglalasStart = DateTime.Parse(idopont);
+                DateTime foglalasEnd = foglalasStart.AddMinutes(30);
 
                 int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
                 int dolgozoID = GetDolgozoID(dolgozo);
