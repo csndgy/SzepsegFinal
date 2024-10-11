@@ -118,6 +118,7 @@ namespace SzepsegV0._2
             {
                 bejelentkezesAblak.Activate();
             }
+            LoadDataGrid();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

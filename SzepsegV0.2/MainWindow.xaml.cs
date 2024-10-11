@@ -112,8 +112,8 @@ AND d.statusz = 1";
 
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
         {
-            if (ServiceComboBox.SelectedItem != null && WorkerComboBox.SelectedItem
-                != null && appointmentDatePicker.SelectedDate != null)
+            if (cbServices.SelectedItem != null && cbWorker.SelectedItem
+                != null && dpAppointment.SelectedDate != null)
             {
                 string szolgaltatas = cbServices.SelectedItem.ToString();
                 string dolgozo = cbWorker.SelectedItem.ToString();
@@ -169,17 +169,7 @@ AND d.statusz = 1";
             }
         }
 
-        private int GetSzolgaltatasIdotartam(string szolgaltatasKategoria)
-        {
-            string lekerdezes = "SELECT TIME_TO_SEC(TIMEDIFF(szolgaltatasIdotartam, '00:00:00')) / 60 FROM Szolgáltatás WHERE szolgaltatasKategoria = @szolgaltatasKategoria";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
-                command.Parameters.AddWithValue("@szolgaltatasKategoria", szolgaltatasKategoria);
-                return Convert.ToInt32(command.ExecuteScalar());
-            }
-        }
+        
 
         private int GetDolgozoID(string dolgozoNev)
         {
@@ -201,7 +191,7 @@ AND d.statusz = 1";
 
         while (startTime <= endTime)
         {
-            appointmentComboBox.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
+            cbAppointment.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
             startTime = startTime.AddMinutes(30); // Félórás lépés
         }
     }
