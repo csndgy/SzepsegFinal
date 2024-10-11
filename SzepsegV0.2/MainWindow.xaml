@@ -43,7 +43,7 @@
                        Margin="0,0,0,10" 
                        Foreground="#B3B89A" 
                        Grid.Row="0"/>
-            <ComboBox x:Name="ServiceComboBox" 
+            <ComboBox x:Name="cbServices" 
                       Width="200" 
                       Height="30"  
                       Grid.Row="1"/>
@@ -56,7 +56,7 @@
                        FontWeight="Bold"  
                        Foreground="#B3B89A" 
                        Grid.Row="2"/>
-            <ComboBox x:Name="WorkerComboBox" 
+            <ComboBox x:Name="cbWorker" 
                       Width="200" 
                       Height="30" 
                       Grid.Row="3"/>
@@ -69,12 +69,12 @@
                    FontWeight="Bold"  
                    Foreground="#B3B89A" 
                    Grid.Row="4"/>
-            <DatePicker x:Name="appointmentDatePicker"  SelectedDate="{Binding SelectedDate}"
+            <DatePicker x:Name="dpAppointment"  SelectedDate="{Binding SelectedDate}"
                       Width="200" 
                       Height="30" 
                       Grid.Row="5"  />
 
-            <ComboBox x:Name="appointmentComboBox"
+            <ComboBox x:Name="cbAppointment"
                       Width="200" 
                       Height="30" 
                       Grid.Row="6"/>
