@@ -31,6 +31,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Szolgáltatás kiválasztása -->
@@ -63,22 +64,28 @@
             <!-- Időpont kiválasztása -->
             <Label HorizontalAlignment="Center" 
                    VerticalAlignment="Center" 
-                   Content="Válassz időpontot:" 
+                   Content="Válassz Időpontot:" 
                    FontSize="16" 
                    FontWeight="Bold"  
                    Foreground="#B3B89A" 
                    Grid.Row="4"/>
-            <ComboBox x:Name="appointmentComboBox" 
+            <DatePicker x:Name="appointmentDatePicker"  SelectedDate="{Binding SelectedDate}"
                       Width="200" 
                       Height="30" 
-                      Grid.Row="5" />
+                      Grid.Row="5"  />
+
+            <ComboBox x:Name="appointmentComboBox"
+                      Width="200" 
+                      Height="30" 
+                      Grid.Row="6"/>
+
 
             <!-- Foglalás gomb -->
             <Button Content="Foglalás" 
                     x:Name="btnFoglalas" 
                     Width="100" 
                     Height="37" 
-                    Grid.Row="6" 
+                    Grid.Row="7" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Bottom" 
                     Margin="0,0,0,5" 
