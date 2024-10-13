@@ -18,3 +18,11 @@ Dolgozó:
 - Foglalás időpontjának módosítása (kérés)
 - Saját adatainak módosítása
 - Felhasználó adatainak megtekintése
+
+AZ ELSŐ UI TERV:
+
+![kép_2024-10-01_180624723](https://github.com/user-attachments/assets/9163f7af-8be6-4c4c-95d3-9e163f0fff8c)
+
+A MÁSODIK UI TERV:
+
+![2  UI terv](https://github.com/user-attachments/assets/57c39ac0-0c8a-4436-ad4e-90da85318c7c)
