@@ -17,14 +17,18 @@ namespace SzepsegV0._2
     public partial class MainWindow : Window
     {
         private readonly string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
+        private string vezetekNev;
+        private string keresztNev;
 
-        public MainWindow()
+        public MainWindow(string VezNev,string KerNev)
         {
             InitializeComponent();
             SzolgaltatasokBetoltese();
-            FillComboBoxWithTimeSlots();
+            tbFelhasznalo.Text = KerNev + " " + VezNev;
+            vezetekNev = VezNev;
+            keresztNev = KerNev;
         }
-
+        
         private void SzolgaltatasokBetoltese()
         {
             string lekerdezes = "SELECT SzolgaltatasKategoria FROM szolgáltatás";
@@ -52,16 +56,18 @@ namespace SzepsegV0._2
                     MessageBox.Show("Hiba történt a szolgáltatások betöltése során: " + ex.Message);
                 }
             }
+            FillComboBoxWithTimeSlots();
+
         }
 
         private void DolgozokBetoltese(string valasztottSzolgaltatasKategoria)
         {
             string lekerdezes = @"
-SELECT CONCAT(d.dolgozoFirstName, ' ', d.dolgozoLastName) AS DolgozoNev 
-FROM Dolgozók d 
-JOIN Szolgáltatás s ON d.szolgáltatasa = s.szolgaltatasID
-WHERE s.szolgaltatasKategoria = @valasztottSzolgaltatasKategoria 
-AND d.statusz = 1";
+            SELECT CONCAT(d.dolgozoFirstName, ' ', d.dolgozoLastName) AS DolgozoNev 
+            FROM Dolgozók d 
+            JOIN Szolgáltatás s ON d.szolgáltatasa = s.szolgaltatasID
+            WHERE s.szolgaltatasKategoria = @valasztottSzolgaltatasKategoria 
+            AND d.statusz = 1";
 
 
             using (MySqlConnection kapcsolat = new MySqlConnection(connectionString))
@@ -87,6 +93,7 @@ AND d.statusz = 1";
                     MessageBox.Show("Hiba történt a dolgozók betöltése során: " + ex.Message);
                 }
             }
+            FillComboBoxWithTimeSlots();
         }
 
         private void SzolgaltatasKombobox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -110,82 +117,84 @@ AND d.statusz = 1";
             }
         }
 
-
-
-
         private void btnFoglalas_Click(object sender, RoutedEventArgs e)
-        {
-            if (cbServices.SelectedItem != null && cbWorker.SelectedItem != null && cbAppointment.SelectedItem != null && dpAppointment.SelectedDate != null)
             {
-                if (cbAppointment.SelectedItem != null)
+                if (cbServices.SelectedItem != null && cbWorker.SelectedItem != null && cbAppointment.SelectedItem != null && dpAppointment.SelectedDate != null)
                 {
-
-
-                    string szolgaltatas = cbServices.SelectedItem.ToString();
-                    string dolgozo = cbWorker.SelectedItem.ToString();
-                    string idopont = cbAppointment.SelectedItem.ToString();
-                    DateTime selectedDate = (DateTime)dpAppointment.SelectedDate;
-
-                    DateTime foglalasStart = DateTime.Parse($"{selectedDate.ToString("yyyy-MM-dd")} {idopont}");
-
-                    // Ellenőrizzük, hogy a kiválasztott időpont a jövőben van-e
-                    if (foglalasStart < DateTime.Now)
+                    if (cbAppointment.SelectedItem != null)
                     {
-                        MessageBox.Show("Nem lehet időpontot foglalni a múltba!");
-                        return;
-                    }
+                        string szolgaltatas = cbServices.SelectedItem.ToString();
+                        string dolgozo = cbWorker.SelectedItem.ToString();
+                        string idopont = cbAppointment.SelectedItem.ToString();
+                        DateTime selectedDate = (DateTime)dpAppointment.SelectedDate;
 
-                    int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
-                    DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
-                    if (IsTimeSlotAvailable(foglalasStart, dolgozo, szolgaltatas))
-                    {
-                        int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
-                        int dolgozoID = GetDolgozoID(dolgozo);
-                        int ugyfelID = 1;
+                        DateTime foglalasStart = DateTime.Parse($"{selectedDate.ToString("yyyy-MM-dd")} {idopont}");
 
-                        string lekerdezes = @"
-        INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd)
-        VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
-
-                        using (MySqlConnection connection = new MySqlConnection(connectionString))
+                        if (foglalasStart < DateTime.Now)
                         {
-                            try
-                            {
-                                connection.Open();
-                                MySqlCommand command = new MySqlCommand(lekerdezes, connection);
-                                command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
-                                command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
-                                command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
-                                command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
-                                command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
-                                command.ExecuteNonQuery();
-                                MessageBox.Show("A foglalás sikeresen létrejött!");
-                                this.Close();
-                                Bejelnetkzes.LoadDataGrid();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Hiba történt a foglalás során: " + ex.Message);
-                            }
+                            MessageBox.Show("Nem lehet időpontot foglalni a múltba!");
+                            return;
                         }
 
+                        int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
+                        DateTime foglalasEnd = foglalasStart.AddMinutes(szolgaltatasIdotartam);
+                        if (IsTimeSlotAvailable(foglalasStart, dolgozo, szolgaltatas))
+                        {
+                            int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
+                            int dolgozoID = GetDolgozoID(dolgozo);
+                            int ugyfelID = GetCustomerId();
+
+                            string lekerdezes = @"INSERT INTO Foglalás (szolgaltatasID, dolgozoID, ugyfelID, foglalasStart, foglalasEnd) 
+                                     VALUES (@szolgaltatasID, @dolgozoID, @ugyfelID, @foglalasStart, @foglalasEnd)";
+
+                            using (MySqlConnection connection = new MySqlConnection(connectionString))
+                            {
+                                try
+                                {
+                                    connection.Open();
+                                    MySqlCommand command = new MySqlCommand(lekerdezes, connection);
+                                    command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
+                                    command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
+                                    command.Parameters.AddWithValue("@ugyfelID", ugyfelID);
+                                    command.Parameters.AddWithValue("@foglalasStart", foglalasStart);
+                                    command.Parameters.AddWithValue("@foglalasEnd", foglalasEnd);
+                                    command.ExecuteNonQuery();
+                                    MessageBox.Show("A foglalás sikeresen létrejött!");
+                                    this.Close();
+                                    Bejelnetkzes.LoadDataGrid(vezetekNev,keresztNev);
+                            }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Hiba történt a foglalás során: " + ex.Message);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Az időpont foglalt. Válasszon másikat!");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Az időpont foglalt. Válasszon másikat!");
+                        MessageBox.Show("Időpont fog", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("idopont fog", "hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
                 }
             }
-            else
-            {
-                MessageBox.Show("Kérjük, válassza ki az összes mezőt.");
-            }
-        }
+        
 
+            private int GetCustomerId()
+        {
+            if (Application.Current.Windows.OfType<Bejelnetkzes>().Any())
+            {
+                var bejelnetkzesWindow = Application.Current.Windows.OfType<Bejelnetkzes>().First();
+                return bejelnetkzesWindow.CustomerId;
+            }
+            return 0;
+        }
 
         private int GetSzolgaltatasID(string szolgaltatasKategoria)
         {
@@ -216,16 +225,44 @@ AND d.statusz = 1";
 
         private void FillComboBoxWithTimeSlots()
         {
-            DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); // Kezdő időpont 8:00
-            DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  // Végső időpont 16:00
+            DateTime startTime = new DateTime(2024, 10, 4, 8, 0, 0); 
+            DateTime endTime = new DateTime(2024, 10, 4, 16, 0, 0);  
+            cbAppointment.Items.Clear(); 
 
-            while (startTime <= endTime)
+            if (cbWorker.SelectedItem != null && cbServices.SelectedItem != null)
             {
-                cbAppointment.Items.Add(startTime.ToString("HH:mm")); // Formázás: Óra és Perc
-                startTime = startTime.AddMinutes(30); // Félórás lépés
+                string dolgozo = cbWorker.SelectedItem.ToString();
+                string szolgaltatas = cbServices.SelectedItem.ToString();
+                int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
+
+                while (startTime <= endTime)
+                {
+                    if (IsTimeSlotAvailable(startTime, dolgozo, szolgaltatas))
+                    {
+                        cbAppointment.Items.Add(startTime.ToString("HH:mm")); 
+                    }
+                    startTime = startTime.AddMinutes(30); 
+                }
             }
+            else
+            {
+                while (startTime <= endTime)
+                {
+                    cbAppointment.Items.Add(startTime.ToString("HH:mm")); 
+                    startTime = startTime.AddMinutes(30); 
+                }
+            }
+        }
 
+        private void dpAppointment_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FillComboBoxWithTimeSlots();
 
+        }
+
+        private void cbWorker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FillComboBoxWithTimeSlots(); 
         }
 
         private bool IsTimeSlotAvailable(DateTime startTime, string dolgozo, string szolgaltatas)
@@ -233,11 +270,11 @@ AND d.statusz = 1";
             int dolgozoID = GetDolgozoID(dolgozo);
             int szolgaltatasID = GetSzolgaltatasID(szolgaltatas);
 
-            string query = @"
-SELECT COUNT(*) FROM Foglalás
-WHERE dolgozoID = @dolgozoID
-AND szolgaltatasID = @szolgaltatasID
-AND ((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
+            int szolgaltatasIdotartam = GetSzolgaltatasIdotartam(szolgaltatas);
+            DateTime endTime = startTime.AddMinutes(szolgaltatasIdotartam);
+
+            string query = @"SELECT COUNT(*) FROM Foglalás WHERE dolgozoID = @dolgozoID AND szolgaltatasID = @szolgaltatasID 
+                     AND ((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -245,18 +282,26 @@ AND ((foglalasStart < @foglalasEnd) AND (foglalasEnd > @foglalasStart))";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@dolgozoID", dolgozoID);
                 command.Parameters.AddWithValue("@szolgaltatasID", szolgaltatasID);
-                command.Parameters.AddWithValue("@foglalasEnd", startTime.AddMinutes(30));  // Fél órás időközök
-                command.Parameters.AddWithValue("@foglalasStart", startTime);
+                command.Parameters.AddWithValue("@foglalasEnd", endTime); 
+                command.Parameters.AddWithValue("@foglalasStart", startTime); 
 
                 int count = Convert.ToInt32(command.ExecuteScalar());
-                return count == 0; // Return true if no overlapping bookings found
+                return count == 0; 
             }
         }
 
-        //private void btnFoglalas_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Bejelnetkzes bejelnetkzes = new Bejelnetkzes();
-        //    bejelnetkzes.Show();
-        //}
+        private void cbWorker_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbWorker.SelectedItem != null)
+            {
+                string valasztottSzolgaltatas = cbServices.SelectedItem.ToString();
+                FillComboBoxWithTimeSlots();
+            }
+        }
+        public void SetUserName(string userName)
+        {
+            // Feltételezve, hogy van egy TextBlock a XAML-ban, amelynek neve "tbFelhasznalo"
+            tbFelhasznalo.Text = userName;
+        }
     }
 }
