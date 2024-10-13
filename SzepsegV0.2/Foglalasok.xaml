@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SzepsegV0._2"
         mc:Ignorable="d"
-        Title="Foglalasok" Width="800" Height="350" Background="#FF2E403B"
+        Title="Foglalasok"         
+        Height="415" 
+        Width="375" Background="#FF2E403B"
         ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
@@ -15,16 +17,37 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid >
-        <DataGrid Margin="50,10,50,74" d:ItemsSource="{d:SampleData ItemCount=5}" Width="650" Height="200">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Név" Binding="{Binding nev}" />
-                <DataGridTextColumn Header="Város" Binding="{Binding City}" />
-                <DataGridTextColumn Header="Kor" Binding="{Binding Age}" />
-            </DataGrid.Columns>
-
-        </DataGrid>
-        <Button Content="Törlés" HorizontalAlignment="Left" Height="35" Margin="200,250,0,0" VerticalAlignment="Top" Width="92"/>
-        <Button Content="Szerkeztés" HorizontalAlignment="Left" Height="35" Margin="451,250,200,0" VerticalAlignment="Top" Width="92"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Kereszt név " HorizontalAlignment="Center" Height="24" Grid.Row="0"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox
+             VerticalContentAlignment="Center"
+             HorizontalContentAlignment="Center"
+             x:Name="txtRegKeresztNev" Grid.Row="1" Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Center" Height="32"  TextWrapping="Wrap" VerticalAlignment="Center" Width="260" TextChanged="txtRegKeresztNev_TextChanged" />
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Vezeték név " HorizontalAlignment="Center" Height="24" Grid.Row="2"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox
+             VerticalContentAlignment="Center"
+             HorizontalContentAlignment="Center"
+             x:Name="txtRegVezeNev" Grid.Row="3" Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Center" Height="32" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" TextChanged="txtRegVezeNev_TextChanged" />
+        <Label Style="{StaticResource CustomLabelStyle}" Content="E-mail cím " HorizontalAlignment="Center" Height="24" Grid.Row="4"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            x:Name="txtRegEmail" Grid.Row="5" Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Center" Height="32"  TextWrapping="Wrap" VerticalAlignment="Center" Width="260" TextChanged="txtRegEmail_TextChanged"/>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Telefon szám " HorizontalAlignment="Center" Height="24" Grid.Row="6"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <TextBox
+            VerticalContentAlignment="Center"
+            HorizontalContentAlignment="Center"
+            x:Name="txtRegTelSzam" Grid.Row="7" Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Center" Height="32"  TextWrapping="Wrap" VerticalAlignment="Center" Width="260" TextChanged="txtRegTelSzam_TextChanged"/>
+        <Button Grid.Row="9"  Content="Regisztrció" HorizontalAlignment="Center" Height="36" VerticalAlignment="Center" Width="118" x:Name="btnBeReg" Click="btnBeReg_Click"/>
     </Grid>
 </Window>

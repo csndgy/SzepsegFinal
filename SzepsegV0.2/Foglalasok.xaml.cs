@@ -19,7 +19,152 @@ namespace SzepsegV0._2
             InitializeComponent();
         }
 
-        
-       
+        private void btnBeReg_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtRegKeresztNev.Text) ||
+                string.IsNullOrWhiteSpace(txtRegVezeNev.Text) ||
+                string.IsNullOrWhiteSpace(txtRegTelSzam.Text) ||
+                string.IsNullOrWhiteSpace(txtRegEmail.Text))
+            {
+                MessageBox.Show("Kérjük, töltse ki az összes mezőt!", "Hiányzó adatok", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
+            string connectionString = "server=localhost;database=szepsegfinal;uid=root;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "INSERT INTO ügyfél (ugyfelFirstName, ugyfelLastName, ugyfelTel, ugyfelEmail, ugyfelPontok) " +
+                                   "VALUES (@FirstName, @LastName, @Tel, @Email, 0)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+
+                        cmd.Parameters.AddWithValue("@FirstName", txtRegKeresztNev.Text);
+                        cmd.Parameters.AddWithValue("@LastName", txtRegVezeNev.Text);
+                        cmd.Parameters.AddWithValue("@Tel", txtRegTelSzam.Text);
+                        cmd.Parameters.AddWithValue("@Email", txtRegEmail.Text);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Sikeres regisztráció!", "Siker", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba történt: {ex.Message}", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+        }
+
+        private void txtRegKeresztNev_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string input = txtRegKeresztNev.Text;
+            StringBuilder filtered = new StringBuilder();
+
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c) || char.IsWhiteSpace(c))
+                {
+                    filtered.Append(c);
+                }
+            }
+
+
+            if (txtRegKeresztNev.Text != filtered.ToString())
+            {
+                txtRegKeresztNev.Text = filtered.ToString();
+                txtRegKeresztNev.CaretIndex = filtered.Length; 
+            }
+        }
+
+        private void txtRegVezeNev_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string input = txtRegVezeNev.Text;
+            StringBuilder filtered = new StringBuilder();
+
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c) || char.IsWhiteSpace(c))
+                {
+                    filtered.Append(c);
+                }
+            }
+
+
+            if (txtRegVezeNev.Text != filtered.ToString())
+            {
+                txtRegVezeNev.Text = filtered.ToString();
+                txtRegVezeNev.CaretIndex = filtered.Length; 
+            }
+        }
+
+        private void txtRegEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string input = txtRegEmail.Text;
+            StringBuilder filtered = new StringBuilder();
+            bool atSymbolExists = false;
+            bool dotExists = false;
+
+            foreach (char c in input)
+            {
+                if (char.IsLetterOrDigit(c) || c == '@' || c == '.')
+                {
+                    if (c == '@')
+                    {
+                        if (atSymbolExists)
+                            continue; 
+                        atSymbolExists = true;
+                    }
+                    if (c == '.')
+                    {
+                        if (dotExists)
+                            continue; 
+                        dotExists = true;
+                    }
+
+                    filtered.Append(c); 
+                }
+            }
+
+            if (txtRegEmail.Text != filtered.ToString())
+            {
+                txtRegEmail.Text = filtered.ToString();
+                txtRegEmail.CaretIndex = filtered.Length;
+            }
+        }
+
+        private void txtRegTelSzam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string input = txtRegTelSzam.Text;
+            StringBuilder filtered = new StringBuilder();
+
+            foreach (char c in input)
+            {
+                if (char.IsNumber(c))
+                {
+                    filtered.Append(c);
+                }
+            }
+
+            if (filtered.Length > 11)
+            {
+                filtered.Length = 11; 
+            }
+
+
+            if (txtRegTelSzam.Text != filtered.ToString())
+            {
+                txtRegTelSzam.Text = filtered.ToString();
+                txtRegTelSzam.CaretIndex = filtered.Length;
+            }
+        }
     }
 }

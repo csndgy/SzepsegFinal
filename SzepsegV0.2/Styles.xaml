@@ -19,9 +19,7 @@
     <Style TargetType="Label" x:Key="CustomLabelStyle">
         <Setter Property="Foreground" Value="#B3B89A"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
-        <!-- Szebbé téve -->
         <Setter Property="FontWeight" Value="Bold"/>
-        <!-- Szebbé téve -->
     </Style>
 
     <!-- Image sablon -->
@@ -42,9 +40,7 @@
         <Setter Property="Foreground" Value="#2E403B"/>
         <Setter Property="Background" Value="#B3B89A"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
-        <!-- Szebbé téve -->
         <Setter Property="FontWeight" Value="Normal"/>
-        <!-- Szebbé téve -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -64,9 +60,7 @@
         <Setter Property="BorderThickness" Value="4"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Segoe UI"/>
-        <!-- Szebbé téve -->
         <Setter Property="FontWeight" Value="Bold"/>
-        <!-- Szebbé téve -->
         <Setter Property="Padding" Value="10,5"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -104,9 +98,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="FontFamily" Value="Segoe UI"/>
-        <!-- Szebbé téve -->
         <Setter Property="FontWeight" Value="Normal"/>
-        <!-- Szebbé téve -->
     </Style>
 
     <!-- Stílus a ComboBox-hoz -->
@@ -138,7 +130,7 @@
                             HorizontalAlignment="Left" 
                             Foreground="#2E403B"
                             FontFamily="Segoe UI" 
-                            FontWeight="Normal"/> <!-- Szebbé téve -->
+                            FontWeight="Normal"/>
 
                             <TextBox x:Name="PART_EditableTextBox"
                             Style="{StaticResource ComboBoxTextBox}" 
@@ -228,9 +220,7 @@
             <Setter.Value>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="#B3B89A"/>
-                    <!-- Fejléc háttérszíne -->
                     <Setter Property="Foreground" Value="#2E403B"/>
-                    <!-- Fejléc betűszíne -->
                     <Setter Property="BorderBrush" Value="#B3B89A"/>
                     <Setter Property="BorderThickness" Value="1"/>
                     <Setter Property="Padding" Value="5"/>

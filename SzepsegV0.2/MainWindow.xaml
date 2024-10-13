@@ -35,12 +35,21 @@
             </Grid.RowDefinitions>
 
             <!-- Szolgáltatás kiválasztása -->
-            <TextBlock HorizontalAlignment="Center" 
+            <TextBlock HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 
                        Text="Válassz Szolgáltatást:" 
                        FontSize="16" 
                        FontWeight="Bold" 
-                       Margin="0,0,0,10" 
+                       Margin="10,0,0,10" 
+                       Foreground="#B3B89A" 
+                       Grid.Row="0"/>
+            <TextBlock HorizontalAlignment="Right" 
+                       VerticalAlignment="Center"
+                       x:Name="tbFelhasznalo"
+                       Text="felhasználó" 
+                       FontSize="12" 
+                       FontWeight="Bold" 
+                       Margin="0,0,10,10" 
                        Foreground="#B3B89A" 
                        Grid.Row="0"/>
             <ComboBox x:Name="cbServices" 
@@ -59,7 +68,7 @@
             <ComboBox x:Name="cbWorker" 
                       Width="200" 
                       Height="30" 
-                      Grid.Row="3"/>
+                      Grid.Row="3" SelectionChanged="cbWorker_SelectionChanged_1"/>
 
             <!-- Időpont kiválasztása -->
             <Label HorizontalAlignment="Center" 
@@ -69,10 +78,13 @@
                    FontWeight="Bold"  
                    Foreground="#B3B89A" 
                    Grid.Row="4"/>
+
             <DatePicker x:Name="dpAppointment"  SelectedDate="{Binding SelectedDate}"
                       Width="200" 
                       Height="30" 
-                      Grid.Row="5"  />
+                      Grid.Row="5"
+                      SelectedDateChanged="dpAppointment_SelectedDateChanged"
+                      />
 
             <ComboBox x:Name="cbAppointment"
                       Width="200" 
