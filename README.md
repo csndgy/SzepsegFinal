@@ -2,3 +2,19 @@ A program úgy működik, hogy indításkor megjelenik az AdatokBeírása fül, 
 
 A szepsegfinal2.sql fálj a github repoban el lett helyezve. Az adatbazis amivel mi teszteltuk, a programban a mysql parancsokhoz ezeknek a tablaknak a nevei lettek megadva.
 
+Szerepkörök a programhoz:
+Admin:
+- Foglalások módosítása
+- Foglalás lemondása
+- Fiók törlése
+- Fiók adatainak szerkesztése
+
+Felhasználó:
+- Fiók létrehozása
+- Foglalás
+- Szabadidőpontok nézése
+
+Dolgozó:
+- Foglalás időpontjának módosítása (kérés)
+- Saját adatainak módosítása
+- Felhasználó adatainak megtekintése
