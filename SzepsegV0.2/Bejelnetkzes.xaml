@@ -62,6 +62,7 @@
                 Foreground="Black" 
                 FontSize="14" 
                 Grid.Column="1" Click="Button_Click"/>
+        
         <Button Content="Időpont módosítás" 
         HorizontalAlignment="Left" 
         VerticalAlignment="Top" 

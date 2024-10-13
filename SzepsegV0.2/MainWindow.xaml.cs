@@ -161,6 +161,7 @@ AND d.statusz = 1";
                                 command.ExecuteNonQuery();
                                 MessageBox.Show("A foglalás sikeresen létrejött!");
                                 this.Close();
+                                Bejelnetkzes.LoadDataGrid();
                             }
                             catch (Exception ex)
                             {
@@ -171,7 +172,7 @@ AND d.statusz = 1";
                     }
                     else
                     {
-                        MessageBox.Show("anyad");
+                        MessageBox.Show("Az időpont foglalt. Válasszon másikat!");
                     }
                 }
                 else
