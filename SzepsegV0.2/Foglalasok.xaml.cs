@@ -146,24 +146,26 @@ namespace SzepsegV0._2
             string input = txtRegTelSzam.Text;
             StringBuilder filtered = new StringBuilder();
 
-            foreach (char c in input)
+            // Ellenőrizzük, hogy az első karakter '+'-e
+            if (input.Length > 0 && input[0] == '+')
             {
-                if (char.IsNumber(c))
+                filtered.Append('+'); // Hozzáadjuk a '+' jelet
+            }
+
+            // Az összes további karaktert ellenőrizzük
+            for (int i = 1; i < input.Length; i++)
+            {
+                if (char.IsNumber(input[i]) && filtered.Length < 12)
                 {
-                    filtered.Append(c);
+                    filtered.Append(input[i]); // Csak számok, és max 12 karakter
                 }
             }
 
-            if (filtered.Length > 11)
-            {
-                filtered.Length = 11; 
-            }
-
-
+            // Frissítjük a textboxot, ha szükséges
             if (txtRegTelSzam.Text != filtered.ToString())
             {
                 txtRegTelSzam.Text = filtered.ToString();
-                txtRegTelSzam.CaretIndex = filtered.Length;
+                txtRegTelSzam.CaretIndex = filtered.Length; // Áthelyezi a kurzort a szöveg végére
             }
         }
     }
