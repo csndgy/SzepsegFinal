@@ -1,1 +1,4 @@
-szepsegfinal2.sql file a github repoban el lett helyezve. Az adatbazis amivel mi teszteltuk, a programban a mysql parancsokhoz ezeknek a tablaknak a nevei lettek megadva.
+A program úgy működik, hogy indításkor megjelenik az AdatokBeírása fül, ahol meg kell adni egy felhasználónevet, pl.: Kovács Gábor (vezetéknév, keresztnév sorrendben), vagy regisztrálni kell, ahol meg kell adni a felhasználó kereszt- és vezetéknevét, e-mail címét és telefonszámát. Bejelentkezés után fogad minket az az oldal, ahol láthatjuk, hogy mennyi foglalásunk van és mikorra vannak/voltak, lehet őket törölni vagy éppen új foglalásokat létrehozni. A kijelentkezés gombra kattintva visszakerülünk az előző ablakba, ahol be tudunk jelentkezni másik felhasználónévvel.A programban alapvetően nem tárolunk jelszavakat, csak felhasználóneveket, ezért ügyelni kell arra, hogy ne legyen két azonos nevű felhasználó.
+
+A szepsegfinal2.sql fálj a github repoban el lett helyezve. Az adatbazis amivel mi teszteltuk, a programban a mysql parancsokhoz ezeknek a tablaknak a nevei lettek megadva.
+
