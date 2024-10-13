@@ -43,7 +43,7 @@
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
             x:Name="txtRegEmail" Grid.Row="5" Style="{StaticResource CustomTextBoxStyle}" HorizontalAlignment="Center" Height="32"  TextWrapping="Wrap" VerticalAlignment="Center" Width="260" TextChanged="txtRegEmail_TextChanged"/>
-        <Label Style="{StaticResource CustomLabelStyle}" Content="Telefon szám " HorizontalAlignment="Center" Height="24" Grid.Row="6"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
+        <Label Style="{StaticResource CustomLabelStyle}" Content="Telefonszám " HorizontalAlignment="Center" Height="24" Grid.Row="6"  VerticalAlignment="Center" Width="260" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Padding="0,0,0,0" ScrollViewer.CanContentScroll="True"/>
         <TextBox
             VerticalContentAlignment="Center"
             HorizontalContentAlignment="Center"
